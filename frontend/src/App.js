@@ -4,7 +4,7 @@ import { Homepage } from './pages/Homepage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App w-full h-full">
       <Routes>
         <Route exact path='/' element={<Homepage />}/>
       </Routes>
