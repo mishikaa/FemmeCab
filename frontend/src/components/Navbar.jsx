@@ -13,7 +13,7 @@ export const Navbar = () => {
         {/* Brand section */}
         <div className='flex items-center gap-2'>
           <img className='w-12 h-12 rounded-3xl' src="/assets/logo.jpg" alt="logo" />
-          <span>FemmeCab</span>
+          <span className='text-lg bold'>FemmeCab</span>
         </div>
 
         <div className='hidden md:flex items-center gap-5 justify-between w-[65%]' aria-label='this div will be hidden for smaller devices and flex for md and above'>
