@@ -1,4 +1,5 @@
 import React from 'react'
+import Login from './Authentication modals/Login'
 
 const styles = {
 clipPath: "polygon(23.5% 0, 100% 0, 100% 100%, 0 100%, 0 39.5%, 23.5% 39.5%)"

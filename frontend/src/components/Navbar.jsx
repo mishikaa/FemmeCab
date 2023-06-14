@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup, Link } from '@chakra-ui/react'
 import { navLinks } from '../constants'
+import Login from './Authentication modals/Login'
+import Signup from './Authentication modals/Signup'
 
 export const Navbar = () => {
   const [active, setActive] = useState("")
@@ -42,28 +44,8 @@ export const Navbar = () => {
   
           {/* Authentication section */}
           <ButtonGroup spacing='4'>
-            <Button
-              variant='outline'
-              color='var(--text-white)'
-              borderRadius='32px'
-              fontSize='14px'
-              _hover={{
-                color: 'var(--text-primary)',
-                background: 'white',
-              }}
-            >
-              Login
-            </Button>
-            <Button
-              background= 'var(--light-gradient)'
-              fontSize='14px'
-              _hover={{
-                background: 'white',
-              }}
-              borderRadius='32px'
-            >
-              Sign up
-            </Button>
+            <Login />
+            <Signup />
           </ButtonGroup>
         </div>
 
