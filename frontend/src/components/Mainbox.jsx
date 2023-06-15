@@ -1,11 +1,13 @@
 import React from 'react'
-import Login from './Authentication modals/Login'
+import { useNavigate } from 'react-router-dom'
 
 const styles = {
 clipPath: "polygon(23.5% 0, 100% 0, 100% 100%, 0 100%, 0 39.5%, 23.5% 39.5%)"
 }
 
 export const Mainbox = () => {
+  const navigate = useNavigate();
+
   return (
     <>
     <div 
@@ -23,8 +25,9 @@ export const Mainbox = () => {
     <div className='flex flex-wrap justify-evenly items-center mb-3'>
       <div className='flex justify-center'>
         <button 
+          onClick={()=>navigate('/map')}
           className='w-[8.75rem] h-[8rem] font-bold text-lg p-4 rounded-xl bg-gradient-to-t from-[#2c3e50] to-[#bdc3c7] tracking-wider
-          hover:bg-gradient-to-b from-[#2c3e50] to-[#bdc3c7] hover:scale-105'
+          hover:bg-gradient-to-b from-[#2c3e50] to-[#bdc3c7] hover:scale-105 transition'
         >
           Book Now
         </button>

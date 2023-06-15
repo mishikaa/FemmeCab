@@ -5,6 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import './index.css';
 import App from './App';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
