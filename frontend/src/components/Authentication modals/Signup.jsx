@@ -132,7 +132,7 @@ const Signup = () => {
         <ModalContent>
           <ModalHeader className="text-center uppercase font-extrabold">Signup</ModalHeader>
           <ModalCloseButton />
-          <ModalBody isDisabled={googleLoading} pb={6}>
+          <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Email</FormLabel>
               <Input 

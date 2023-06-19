@@ -69,7 +69,7 @@ export const Navbar = () => {
           className = {
             `opacity-1 md:opacity-0
             ${toggle ? "flex-col" : "hidden"} 
-            p-6 z-1 absolute top-0 right-0 duration-500
+            p-6 z-50 absolute top-0 right-0 duration-500
             min-w-[200px] bg-black bg-opacity-90 h-full
             transition delay-800 duration-1000 ease-in`
           }
