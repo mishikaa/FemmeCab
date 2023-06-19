@@ -36,9 +36,7 @@
 
 ## About The Project
 
-ReadIt is a blogging platform designed to provide a platform for users to share and discover engaging content on a wide range of topics. With its 
-intuitive user interface and powerful features, ReadIt aims to create a vibrant community where individuals can express their thoughts, learn from 
-others, and foster meaningful discussions.
+FemmeCab is the first one-of-a-kind women-only cab booking and ride-sharing system that is meticulously designed for the safe and comfortable traveling experience of women in India. FemmeCab aims at empowering women journey with enhanced safety measure, 24/7 availability, prompt pickups, and well-maintained vehicles that is just one click away.
 
 ### Home Page
 ![Homepage ScreenShot](Screenshots/homepage.png)
