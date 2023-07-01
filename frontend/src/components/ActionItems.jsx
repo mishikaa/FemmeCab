@@ -11,7 +11,7 @@ export const ActionItems = () => {
             <ActionButton title="2 wheeler" imgSrc="/assets/2wheeler.png"></ActionButton>
             <ActionButton title="Reserve" imgSrc="/assets/reserve.png"></ActionButton>
         </div>
-        <div onClick={()=>navigate('/markLocation')}
+        <div onClick={()=>navigate('/addLocation')}
             className="text-left bg-[#E0E2F0] font-bold p-6 m-3 cursor-pointer shadow-[1.95px_1.95px_2.6px_rgba(0,0,0,0.2)]"
         >
             Where to?

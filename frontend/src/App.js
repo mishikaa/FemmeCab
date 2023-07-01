@@ -4,7 +4,7 @@ import { Homepage } from './pages/Homepage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Mappage from './pages/Mappage';
-import { MarkLocation } from './pages/MarkLocation';
+import AddLocation from './pages/AddLocation';
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Homepage />}/>
         <Route exact path='/map' element={<Mappage />}/>
-        <Route exact path='/markLocation' element={<MarkLocation />}/>
+        <Route exact path='/addLocation' element={<AddLocation />}/>
       </Routes>
       
     </div>

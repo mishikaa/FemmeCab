@@ -1,0 +1,26 @@
+
+.location-box {
+    padding: 15px;
+    background-image: linear-gradient(to right, #CED2E9, #B0B9E5);
+    border-radius: 2rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.location-shadow {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+.location-inputs input{
+    background: inherit;
+    box-shadow: rgba(82, 81, 81, 0.321) 0px 2px 4px 0px inset;
+    padding: 12px 15px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 2rem;
+}
+
+.location-inputs input:focus {
+    color: #111;
+}
