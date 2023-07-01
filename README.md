@@ -45,7 +45,10 @@ FemmeCab is the first one-of-a-kind women-only cab booking and ride-sharing syst
 ![Homepage mobile ScreenShot](Screenshots/mobile.png)
 
 ### Map Page
-![map page ScreenShot](Screenshots/map.png)
+![map page ScreenShot](Screenshots/mapbox.png)
+
+### Add Location Page
+![location page ScreenShot](Screenshots/addLocation.png)
 
 ## Built With
 
