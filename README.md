@@ -39,16 +39,19 @@
 FemmeCab is the first one-of-a-kind women-only cab booking and ride-sharing system that is meticulously designed for the safe and comfortable traveling experience of women in India. FemmeCab aims at empowering women journey with enhanced safety measure, 24/7 availability, prompt pickups, and well-maintained vehicles that is just one click away.
 
 ### Home Page
-![Homepage ScreenShot](Screenshots/homepage.png)
+![Homepage ScreenShot](Screenshots/homepage.png =250x250)
 
 ### Mobile View
-![Homepage mobile ScreenShot](Screenshots/mobile.png)
+![Homepage mobile ScreenShot](Screenshots/mobile.png =250x250)
 
 ### Map Page
-![map page ScreenShot](Screenshots/mapbox.png)
+![map page ScreenShot](Screenshots/mapbox.png =250x250)
 
 ### Add Location Page
-![location page ScreenShot](Screenshots/addLocation.png)
+![location page ScreenShot](Screenshots/addLocation.png =250x250)
+
+### Confirmation Page
+![confirmation page ScreenShot](Screenshots/confirm.png =250x250)
 
 ## Built With
 
