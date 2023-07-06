@@ -19,8 +19,11 @@
     outline: none;
     border: none;
     border-radius: 2rem;
+    color: #111;
 }
 
-.location-inputs input:focus {
+.location-inputs input:focus{
     color: #111;
+    background: #E8F0FE;
+    transition: .35s ease-in-out;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup, Link } from '@chakra-ui/react'
-import { navLinks } from '../constants'
+import { navLinks } from '../constants/navLinks'
 import Login from './Authentication modals/Login'
 import Signup from './Authentication modals/Signup'
 

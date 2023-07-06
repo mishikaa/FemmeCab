@@ -1,8 +1,14 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './AddLocation.css';
+import { useState } from 'react';
+import Curve from '../components/Curve';
 
 const AddLocation = () => {
+  const [pickup, setPickup] = useState("")
+  const [dropoff, setDropoff] = useState("")
+
   const navigate = useNavigate();
+  
   return (
     <div className="flex flex-col items-center h-[100vh] mx-6 py-4">
       <div className="header flex w-[100%] items-center">
@@ -15,6 +21,7 @@ const AddLocation = () => {
         />
         <h1 className="m-auto font-bold text-[1.5rem]">Enter Your Destination</h1>
       </div>
+      
       {/* From - to icons */}
       <div className="location-box flex justify-center items-start gap-1.5 w-[100%] mt-5">
         <div className="fromToIcons flex flex-col items-center py-3 px-2">
@@ -28,6 +35,8 @@ const AddLocation = () => {
           <input 
             type="text" 
             name="pickup"
+            onChange={(event)=>setPickup(event.target.value)}
+            value={pickup}
             placeholder="Your Pickup Location" 
             id="pickup" 
           />
@@ -35,7 +44,9 @@ const AddLocation = () => {
             className="mb-8"
             type="text" 
             name="destination"
-            placeholder="Your Destination" 
+            onChange={(event)=>setDropoff(event.target.value)}
+            value={dropoff}
+            placeholder="Your Dropoff location" 
             id="destination" 
           />
         </div>
@@ -47,19 +58,21 @@ const AddLocation = () => {
       </div>
       
       {/* Curve */}
-      <svg className="location-shadow -mt-8" 
-      width="100%" height="100" viewBox="0 0 500 100" preserveAspectRatio="none">
-        <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#CED2E9" />
-          <stop offset="100%" stop-color="#B0B9E5" />
-        </linearGradient>
-        
-        <path d="M0,0 L0,70 Q250,10 500,70 L500,0 Z" fill="url(#grad1)" 
-      />
-      </svg>
+      <Curve />
       
-      <div className="cursor-pointer hover:w-[92%] py-[22px] -mt-[2.5rem] flex items-center justify-center font-bold rounded-[50%] w-[90%] bg-gradient-to-r from-[#CED2E9] to-[#B0B9E5] text-black mt-2">
+      <div 
+        className="cursor-pointer -mt-10 hover:w-[61%] hover:text-lg py-[22px] font-bold rounded-[50%] w-[60%] bg-gradient-to-r from-[#CED2E9] to-[#B0B9E5] text-black"
+      >
+        <Link to={{
+          pathname: "/confirm", 
+          search: "?" + 
+            new URLSearchParams({
+              pickup: pickup,
+              dropoff: dropoff
+          })
+        }}>
           Confirm Locations
+        </Link>
       </div>
       
     </div>
