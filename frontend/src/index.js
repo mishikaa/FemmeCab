@@ -6,13 +6,16 @@ import { ChakraProvider } from '@chakra-ui/react'
 import './index.css';
 import App from './App';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import Provider from './Context_API/provider';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <ChakraProvider>
-      <App/>
-    </ChakraProvider>
+    <Provider>
+      <ChakraProvider>
+        <App/>
+      </ChakraProvider>
+    </Provider>
   </BrowserRouter>
   
 );

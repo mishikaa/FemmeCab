@@ -3,11 +3,13 @@ import { Button, ButtonGroup, Link } from '@chakra-ui/react'
 import { navLinks } from '../constants/navLinks'
 import Login from './Authentication modals/Login'
 import Signup from './Authentication modals/Signup'
+import { RideState } from '../Context_API/provider'
+import Logout from './Authentication modals/Logout'
 
 export const Navbar = () => {
   const [active, setActive] = useState("")
   const [toggle, setToggle] = useState(false)
-
+  const {user} = RideState();
   return (
     
     <nav className='w-full flex justify-between items-center px-3 py-2'>
@@ -43,10 +45,13 @@ export const Navbar = () => {
           </div>
   
           {/* Authentication section */}
+          {!user ? (
           <ButtonGroup spacing='4'>
             <Login />
             <Signup />
           </ButtonGroup>
+          ) : <Logout /> }
+          
         </div>
 
         {/* For small devices */}

@@ -1,12 +1,13 @@
 import { RideContainer } from "../components/RideContainer"
 import Map from "../components/Map"
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { RideState } from "../Context_API/provider";
 
 export const Confirm = () => {
-    const [pickupCoordinates, setPickupCoordinates] = useState();
-    const [dropoffCoordinates, setDropoffCoordinates] = useState();
-    
+    const navigate = useNavigate();
+
+    const {pickupCoordinates, setPickupCoordinates, dropoffCoordinates, setDropoffCoordinates} = RideState();
     // Getting the pickup and dropoff locations from the url
     const [searchParams] = useSearchParams();
     const pickup = searchParams.get("pickup")
@@ -45,10 +46,17 @@ export const Confirm = () => {
       getDropoffCoordinates(dropoff)
     }, [pickup, dropoff])
     
-    return (
+    return (        
         <div className="h-[110vh] flex flex-col text-black">
+            {/* Back button */}
+            <img 
+              className="cursor-pointer rounded-full bg-white p-1 w-8 hover:w-9 absolute top-4 left-4 z-10 shadow-md" 
+              src="/assets/arrows/blackBack.png" 
+              alt="back"
+              onClick={()=>navigate('/addLocation')}
+            />
             <Map pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates} />
-            <RideContainer />
+            <RideContainer pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates}/>
         </div>
   )
 }

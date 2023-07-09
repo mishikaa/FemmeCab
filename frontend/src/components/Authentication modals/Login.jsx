@@ -1,12 +1,12 @@
 import { Button, FormControl, FormLabel, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { errorPopup, successPopup } from "../popup";
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  
+
   // For modal 
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
@@ -67,7 +67,7 @@ const Login = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <>
         <Button

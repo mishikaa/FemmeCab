@@ -15,6 +15,19 @@ const Map = ({pickupCoordinates, dropoffCoordinates}) => {
       zoom: 9
     });
     
+    // Add geolocate control to the map.
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+      positionOptions: {
+      enableHighAccuracy: true
+      },
+      // When active the map will receive updates to the device's location as it changes.
+      trackUserLocation: true,
+      // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      showUserHeading: true
+      })
+    );
+
     // Adding markers to map if coordinates are available
     if(pickupCoordinates) {
         addToMap(map, pickupCoordinates, "#0BDBFB");
@@ -48,7 +61,7 @@ const Map = ({pickupCoordinates, dropoffCoordinates}) => {
     }
     
     return (
-    <div className='flex-1' id='map'></div>
+    <div className="flex-1" id='map'></div>
   )
 }
 

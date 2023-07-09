@@ -14,8 +14,8 @@ const AddLocation = () => {
       <div className="header flex w-[100%] items-center">
         {/* Back button */}
         <img 
-          className="cursor-pointer w-6 hover:w-7" 
-          src="/assets/back.png" 
+          className="cursor-pointer rounded-full bg-black object-contain w-8 p-1 shadow-md hover:w-9 absolute top-4 left-4 z-10" 
+          src="/assets/arrows/back.png" 
           alt="back"
           onClick={()=>navigate('/map')}
         />
