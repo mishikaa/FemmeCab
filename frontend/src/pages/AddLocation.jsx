@@ -1,15 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './AddLocation.css';
-import { useState } from 'react';
 import Curve from '../components/Curve';
+import LocationSheet from '../components/LocationSheet';
+import AddGeocoder from './AddGeocoder';
+import { RideState } from '../Context_API/provider';
+
+const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA'
 
 const AddLocation = () => {
-  const [pickup, setPickup] = useState("")
-  const [dropoff, setDropoff] = useState("")
-
+  const {pickup, dropoff, setPickup, setDropoff} = RideState()
   const navigate = useNavigate();
-  
+
   return (
+
     <div className="flex flex-col items-center h-[100vh] mx-6 py-4">
       <div className="header flex w-[100%] items-center">
         {/* Back button */}
@@ -31,26 +34,11 @@ const AddLocation = () => {
         </div>
         
         {/* Location inputs */}
-        <div className="location-inputs flex flex-col justify-center items-center gap-3 w-[90%]">
-          <input 
-            type="text" 
-            name="pickup"
-            onChange={(event)=>setPickup(event.target.value)}
-            value={pickup}
-            placeholder="Your Pickup Location" 
-            id="pickup" 
-          />
-          <input 
-            className="mb-8"
-            type="text" 
-            name="destination"
-            onChange={(event)=>setDropoff(event.target.value)}
-            value={dropoff}
-            placeholder="Your Dropoff location" 
-            id="destination" 
-          />
+
+        <div className="flex flex-col justify-center items-center gap-3 w-[100%]">
+          <AddGeocoder id="pickup" setPickup={setPickup}/>
+          <AddGeocoder id="dropoff" setDropoff={setDropoff} />
         </div>
-        
         {/* Add button */}
         <div className="cursor-pointer self-center ml-2 -mt-6 bg-[#f2f3ffe3] rounded-3xl shadow-[0_3px_8px_rgb(0,0,0,0.24)]">
           <img className="w-10 p-0.25 hover:w-11" src="assets/plus1.png" alt="add" />
@@ -59,7 +47,7 @@ const AddLocation = () => {
       
       {/* Curve */}
       <Curve />
-      
+
       <div 
         className="cursor-pointer -mt-10 hover:w-[61%] hover:text-lg py-[22px] font-bold rounded-[50%] w-[60%] bg-gradient-to-r from-[#CED2E9] to-[#B0B9E5] text-black"
       >
@@ -68,13 +56,14 @@ const AddLocation = () => {
           search: "?" + 
             new URLSearchParams({
               pickup: pickup,
-              dropoff: dropoff
+              dropoff: dropoff,
           })
         }}>
           Confirm Locations
         </Link>
       </div>
       
+      <LocationSheet />
     </div>
   )
 }

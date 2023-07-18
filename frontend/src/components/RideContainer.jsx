@@ -2,23 +2,38 @@ import { useNavigate } from "react-router-dom"
 import Curve from "./Curve";
 import { RideCard } from "./RideCard";
 import { rideList } from "../constants/rideList";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RideState } from "../Context_API/provider";
+import Payment from "../pages/Payment";
+import Config from "../config.json";
 
-export const RideContainer = () => {
-    const {pickupCoordinates, dropoffCoordinates} = RideState();
+export const RideContainer = ({rideDuration, setRideDuration}) => {
+    const {setDuration, setDistance, pickupCoordinates, dropoffCoordinates, setGeojson, setRoute, route} = RideState();
     const navigate = useNavigate();
-    const [rideDuration, setRideDuration] = useState(0);
     
     useEffect(() => {
        fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?access_token=pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA`
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?geometries=geojson&access_token=${Config.MAPBOX_ACCESS_TOKEN}`
         ).then(res => res.json())
        .then(data => {
-           console.log(data.routes[0])
-           setRideDuration((data.routes[0].duration/60)*data.routes[0].distance/1000)
+           if(data){
+                // for duration, ditance and price
+                setDuration(Math.round(data.routes[0].duration / 60))
+                setDistance(Math.round(data.routes[0].distance / 1000))
+                setRideDuration((data.routes[0].duration/60)*data.routes[0].distance/1000)
+                // For direction
+                setRoute(data.routes[0].geometry.coordinates);
+                setGeojson({
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                      type: 'LineString',
+                      coordinates: route
+                    }
+                });
+           }
        })
-    //    console.log(data)
+       
 
     }, [pickupCoordinates, dropoffCoordinates])
     
@@ -44,13 +59,7 @@ export const RideContainer = () => {
                 </div>
                 
                 {/* Payment section */}
-                <div 
-                    onClick={()=>navigate('/payment')}
-                    className="text-left flex justify-between items-center w-[97%] bg-[#E0E2F0] font-bold p-5 m-3 cursor-pointer shadow-[1.95px_1.95px_2.6px_rgba(0,0,0,0.2)]"
-                >
-                    Payment
-                    <img className="h-5 hover:h-6" src="/assets/arrows/forward.png" alt="forward" />
-                </div>
+                <Payment />
             </div>
             
             <Curve />
@@ -65,3 +74,58 @@ export const RideContainer = () => {
         </div>
   )
 }
+
+// {"routes":
+//   [
+//    {
+//     "weight_name":"auto",
+//     "weight":1952.479,
+//     "duration":1480.248,
+//     "distance":9107.271,
+//     "legs":[
+//         {
+//             "via_waypoints":[],
+//             "admins":[{"iso_3166_1_alpha3":"IND","iso_3166_1":"IN"}],
+//             "weight":1952.479,"duration":1480.248,
+//             "steps":[
+//                 {
+//                     "intersections":
+//                     [
+//                         {"bearings":[201],
+//                         "entry":[true],
+//                         "mapbox_streets_v8":{"class":"service"},
+//                         "is_urban":true,"admin_index":0,
+//                         "out":0,
+//                         "geometry_index":0,
+//                         "location":[78.169473,26.231308]}
+//                     ],
+//                     "maneuver":{
+//                         "type":"depart",
+//                         "instruction":"Drive south.",
+//                         "bearing_after":201,
+//                         "bearing_before":0,
+//                         "location":[78.169473,26.231308]
+//                     },
+//                     "name":"",
+//                     "duration":10.883,
+//                     "distance":60.729,
+//                     "driving_side":"left",
+//                     "weight":13.331,
+//                     "mode":"driving",
+//                     "geometry":{
+//                         "coordinates":
+//                         [
+//                             [78.169473,26.231308],
+//                             [78.16943,26.231198],
+//                             [78.169341,26.231057],
+//                             [78.169221,26.230905],
+//                             [78.169132,26.230897]],
+//                             "type":"LineString"
+//                     }
+//                 }
+//             ]
+//         }
+//     ]
+// }
+// ]
+// }

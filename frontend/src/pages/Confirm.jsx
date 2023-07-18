@@ -3,11 +3,13 @@ import Map from "../components/Map"
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { RideState } from "../Context_API/provider";
+import Config from "../config.json";
 
 export const Confirm = () => {
     const navigate = useNavigate();
+    const [rideDuration, setRideDuration] = useState(0);
 
-    const {pickupCoordinates, setPickupCoordinates, dropoffCoordinates, setDropoffCoordinates} = RideState();
+    const {pickupCoordinates, setPickupCoordinates, dropoffCoordinates, setDropoffCoordinates, duration, distance} = RideState();
     // Getting the pickup and dropoff locations from the url
     const [searchParams] = useSearchParams();
     const pickup = searchParams.get("pickup")
@@ -17,7 +19,7 @@ export const Confirm = () => {
     const getPickupCoordinates = async(pickup) => {
         const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?`+
         new URLSearchParams({
-            access_token: "pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA",
+            access_token: Config.MAPBOX_ACCESS_TOKEN,
             limit: 1
         })
         )
@@ -31,7 +33,7 @@ export const Confirm = () => {
     const getDropoffCoordinates = async(dropoff) => {
         const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${dropoff}.json?`+
         new URLSearchParams({
-            access_token: "pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA",
+            access_token: Config.MAPBOX_ACCESS_TOKEN,
             limit: 1
         })
         )
@@ -55,8 +57,16 @@ export const Confirm = () => {
               alt="back"
               onClick={()=>navigate('/addLocation')}
             />
+            <span className="flex items-center absolute top-14 right-4 z-10 px-2 rounded-lg py-1 bg-white shadow-md">
+                <img className="w-6 mr-1" src="/assets/location.png" alt="" />
+                Distance: <b>{distance} km</b>
+            </span>
+            <span className="flex items-center z-10 px-2 rounded-lg py-1 bg-white absolute top-24 right-4 shadow-md">
+                <img className="w-5 mr-1" src="/assets/clock.png" alt="" />        
+                Duration: <b>{duration} min</b>
+            </span>
             <Map pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates} />
-            <RideContainer pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates}/>
+            <RideContainer pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates} rideDuration={rideDuration} setRideDuration={setRideDuration}/>
         </div>
   )
 }
