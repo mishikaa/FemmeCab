@@ -7,6 +7,7 @@ const Profile = () => {
     const navigate = useNavigate() 
     const {user} = RideState();  
     return (
+       user && (
         <Avatar 
           className='p-0.5 m-2 cursor-pointer'
           name={user.email}
@@ -14,6 +15,7 @@ const Profile = () => {
           bg='#264653' 
           onClick={()=>{navigate('/profile')}}
         />
+      )
   )
 }
 

@@ -28,13 +28,13 @@ export const Mainbox = () => {
       <div className='flex relative justify-center '>
         <button 
           onClick={()=>{user ? navigate('/map') : errorPopup("You need to login first!")}}
-          className='md:w-[9.1rem] w-[80px] z-10 h-[8rem] absolute left-0 font-bold text-lg p-4 rounded-xl bg-gradient-to-t from-[#2c3e50] to-[#bdc3c7] tracking-wider
+          className='md:w-[9.1rem] w-[5.65rem] z-10 h-[8rem] absolute left-0 font-bold text-lg p-4 rounded-xl bg-gradient-to-t from-[#2c3e50] to-[#bdc3c7] tracking-wider
           hover:bg-gradient-to-b from-[#2c3e50] to-[#bdc3c7] hover:scale-105 transition'
         >
           Book Now
         </button>
         <img 
-          className='w-[22rem] md:w-[40rem] h-[21rem] rounded-xl object-center'
+          className='w-[25rem] md:w-[40rem] h-[21rem] rounded-xl object-center'
           style={styles}
           src="/assets/map.jpg" alt="map" 
         />

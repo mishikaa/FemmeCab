@@ -1,0 +1,19 @@
+/* Styling the popup */
+.mapboxgl-popup-close-button {
+    padding: 0px 3px;
+}
+
+.mapboxgl-popup-content {
+    font: 400 15px/22px 'Source Sans Pro';
+    padding: 2px 5px;
+    border-radius: 5px;
+    background: #FFEFBA !important;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA) !important;
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Removing the default attributes */
+.mapboxgl-ctrl-attrib {
+    display: none;
+}

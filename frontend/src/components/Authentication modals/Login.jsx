@@ -58,7 +58,7 @@ const Login = () => {
     
     localStorage.setItem('userInfo', JSON.stringify(data));
     setLoading(false);
-    navigate('/');
+    window.location.reload()
 
     }
     catch(error) {

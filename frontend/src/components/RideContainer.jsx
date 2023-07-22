@@ -2,45 +2,44 @@ import { useNavigate } from "react-router-dom"
 import Curve from "./Curve";
 import { RideCard } from "./RideCard";
 import { rideList } from "../constants/rideList";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RideState } from "../Context_API/provider";
 import Payment from "../pages/Payment";
 import Config from "../config.json";
+import { errorPopup } from "./popup";
 
 export const RideContainer = ({rideDuration, setRideDuration}) => {
     const {setDuration, setDistance, pickupCoordinates, dropoffCoordinates, setGeojson, setRoute, route} = RideState();
     const navigate = useNavigate();
     
+    const [payment_id, setPayment_id] = useState("")
+    const [isActive, setActive] = useState(-1)
+
     useEffect(() => {
        fetch(
         `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?geometries=geojson&access_token=${Config.MAPBOX_ACCESS_TOKEN}`
         ).then(res => res.json())
        .then(data => {
-           if(data){
+           if(data.routes){
                 // for duration, ditance and price
-                setDuration(Math.round(data.routes[0].duration / 60))
-                setDistance(Math.round(data.routes[0].distance / 1000))
-                setRideDuration((data.routes[0].duration/60)*data.routes[0].distance/1000)
-                // For direction
-                setRoute(data.routes[0].geometry.coordinates);
-                setGeojson({
-                    type: 'Feature',
-                    properties: {},
-                    geometry: {
-                      type: 'LineString',
-                      coordinates: route
-                    }
-                });
+                if(data.routes[0]) {
+                    setDuration(Math.round(data.routes[0].duration / 60))
+                    setDistance(Math.round(data.routes[0].distance / 1000))
+                    setRideDuration((data.routes[0].duration/60)*data.routes[0].distance/1000)
+                    // For direction
+                    setRoute(data.routes[0].geometry.coordinates);
+                }
            }
        })
        
+        console.log(route)
 
     }, [pickupCoordinates, dropoffCoordinates])
     
     return (
         <div className="flex flex-1 flex-col justify-center items-center p-1">
             
-            <div className="location-box flex flex-col justify-center items-start w-[100%]">
+            <div className="location-box rounded-t-[2rem] flex flex-col justify-center items-start w-[100%]">
                 <h1 className="m-auto font-bold mb-3 text-2xl">Choose a ride</h1>
                 
                 {/* Select a ride section */}
@@ -48,10 +47,13 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
                     {
                         rideList.map((ride, index) => (
                             <RideCard 
-                                key={index} 
+                                key={index}
+                                id={index} 
                                 carName={ride.name} 
                                 price={(rideDuration*ride.multiplier).toFixed(0)}
                                 imgSrc={ride.imgUrl} 
+                                isActive={isActive}
+                                setActive={setActive}
                             />
 
                         ))
@@ -59,7 +61,7 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
                 </div>
                 
                 {/* Payment section */}
-                <Payment />
+                <Payment payment_id={payment_id} setPayment_id={setPayment_id}/>
             </div>
             
             <Curve />
@@ -67,7 +69,18 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
             {/* Book now button */}
             <div 
               className="cursor-pointer -mt-12 hover:w-[61%] hover:text-lg py-[20px] flex items-center justify-center font-bold rounded-[50%] w-[60%] bg-gradient-to-r from-[#CED2E9] to-[#B0B9E5] text-black"
-              onClick={()=>navigate('/book')}
+              onClick={()=>{
+                // Navigate only if a ride is selected and payment is successfull
+                if(payment_id && isActive!==-1) {
+                    navigate('/rideInProgress')
+                } else if(!payment_id){
+                    errorPopup("Please make the payment first!")
+                } else if(isActive===-1) {
+                    errorPopup('Select your Ride first!')
+                } else {
+                    errorPopup('Some error occurred. Please try again later')
+                }
+            }}
             >
               Book Now
             </div>

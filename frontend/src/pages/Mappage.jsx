@@ -1,5 +1,5 @@
 import { ActionItems } from '../components/ActionItems';
-import Map from '../components/Map';
+import DashboardMap from '../components/DashboardMap';
 import Profile from '../components/Profile';
 
 const Mappage = () => {
@@ -22,7 +22,7 @@ const Mappage = () => {
       <ActionItems />
       <div className='rounded-md h-[100%] text-left bg-[#E0E2F0] flex flex-col font-bold p-2 m-3 cursor-pointer shadow-[1.95px_1.95px_2.6px_rgba(0,0,0,0.2)]'>
         <h3 className="text-left text-lg mb-1 font-bold">Around You</h3>
-        <Map />
+        <DashboardMap />
       </div>
     </div>
   )

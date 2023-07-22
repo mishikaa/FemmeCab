@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { RideState } from "../Context_API/provider";
 import Config from "../config.json";
+import MapOverlays from "../components/MapOverlays";
 
 export const Confirm = () => {
-    const navigate = useNavigate();
     const [rideDuration, setRideDuration] = useState(0);
 
-    const {pickupCoordinates, setPickupCoordinates, dropoffCoordinates, setDropoffCoordinates, duration, distance} = RideState();
+    const {setPickupCoordinates, setDropoffCoordinates, duration, distance} = RideState();
     // Getting the pickup and dropoff locations from the url
     const [searchParams] = useSearchParams();
     const pickup = searchParams.get("pickup")
@@ -25,8 +25,8 @@ export const Confirm = () => {
         )
         const data = await response.json()
         // console.log(data.features[0].center) 
-        
-        setPickupCoordinates(data.features[0].center) //gives the coordination of pickup address
+        if(data.features[0])
+            setPickupCoordinates(data.features[0].center) //gives the coordination of pickup address
     }
 
     // Function to get the dropoff coordinates from the address using mapbox geocoding services
@@ -39,34 +39,22 @@ export const Confirm = () => {
         )
         const data = await response.json()
         // console.log(data.features[0].center)
-        
-        setDropoffCoordinates(data.features[0].center) //gives the coordination of dropoff address
+        if(data.features[0])
+            setDropoffCoordinates(data.features[0].center) //gives the coordination of dropoff address
     }
 
     useEffect(() => {
       getPickupCoordinates(pickup)
       getDropoffCoordinates(dropoff)
+    //   window.location.reload();
+
     }, [pickup, dropoff])
     
     return (        
         <div className="h-[110vh] flex flex-col text-black">
-            {/* Back button */}
-            <img 
-              className="cursor-pointer rounded-full bg-white p-1 w-8 hover:w-9 absolute top-4 left-4 z-10 shadow-md" 
-              src="/assets/arrows/blackBack.png" 
-              alt="back"
-              onClick={()=>navigate('/addLocation')}
-            />
-            <span className="flex items-center absolute top-14 right-4 z-10 px-2 rounded-lg py-1 bg-white shadow-md">
-                <img className="w-6 mr-1" src="/assets/location.png" alt="" />
-                Distance: <b>{distance} km</b>
-            </span>
-            <span className="flex items-center z-10 px-2 rounded-lg py-1 bg-white absolute top-24 right-4 shadow-md">
-                <img className="w-5 mr-1" src="/assets/clock.png" alt="" />        
-                Duration: <b>{duration} min</b>
-            </span>
-            <Map pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates} />
-            <RideContainer pickupCoordinates={pickupCoordinates} dropoffCoordinates={dropoffCoordinates} rideDuration={rideDuration} setRideDuration={setRideDuration}/>
+            <MapOverlays prevPage='addLocation'/>
+            <Map />
+            <RideContainer rideDuration={rideDuration} setRideDuration={setRideDuration}/>
         </div>
   )
 }

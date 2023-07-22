@@ -105,10 +105,10 @@ export const Navbar = () => {
 
           {/* Authentication section */}
           {!user ? (
-          <ButtonGroup spacing='4'>
+            <div className='flex flex-col justify-center items-center gap-2'>            
             <Login />
             <Signup />
-          </ButtonGroup>
+            </div>
           ) : <Logout /> }
         </div>
         

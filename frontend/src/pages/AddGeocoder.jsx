@@ -3,13 +3,14 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import './AddGeocoder.css'
 import Config from "../config.json";
 
-const AddGeocoder = ({id, setPickup, setDropoff}) => {
+const AddGeocoder = ({id, pickup, dropoff, setPickup, setDropoff}) => {
   useEffect(() => {
     const geocoder = new MapboxGeocoder({
     placeholder: `Enter ${id} address`,
     accessToken: Config.MAPBOX_ACCESS_TOKEN,
+    value: id === 'pickup' ? pickup : dropoff,
     countries: 'IN',
-    types: 'country,region,place,postcode,locality,neighborhood'
+    types: 'country,poi,address,region,place,postcode,locality,neighborhood'
     });
     
     // This gets fired each time a query is searched for
@@ -32,7 +33,7 @@ const AddGeocoder = ({id, setPickup, setDropoff}) => {
     });
     
     geocoder.addTo(`#${id}`)
-  }, [id])
+  }, [])
     
   
     return (

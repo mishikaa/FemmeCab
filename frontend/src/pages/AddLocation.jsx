@@ -5,8 +5,6 @@ import LocationSheet from '../components/LocationSheet';
 import AddGeocoder from './AddGeocoder';
 import { RideState } from '../Context_API/provider';
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA'
-
 const AddLocation = () => {
   const {pickup, dropoff, setPickup, setDropoff} = RideState()
   const navigate = useNavigate();
@@ -36,8 +34,8 @@ const AddLocation = () => {
         {/* Location inputs */}
 
         <div className="flex flex-col justify-center items-center gap-3 w-[100%]">
-          <AddGeocoder id="pickup" setPickup={setPickup}/>
-          <AddGeocoder id="dropoff" setDropoff={setDropoff} />
+          <AddGeocoder id="pickup" pickup={pickup} setPickup={setPickup}/>
+          <AddGeocoder id="dropoff" dropoff={dropoff} setDropoff={setDropoff} />
         </div>
         {/* Add button */}
         <div className="cursor-pointer self-center ml-2 -mt-6 bg-[#f2f3ffe3] rounded-3xl shadow-[0_3px_8px_rgb(0,0,0,0.24)]">
