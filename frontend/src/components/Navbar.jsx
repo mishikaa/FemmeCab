@@ -56,14 +56,14 @@ export const Navbar = () => {
 
         {/* For small devices */}
         <div 
-          className='md:hidden flex flex-1 z-10 justify-end items-center' 
+          className='md:hidden flex flex-1 justify-end items-center' 
           aria-label='this will be hidden for md above devices'
         >
           <img 
             aria-label='Initially, we need to display the menu icon' 
             src={toggle ? "/assets/close.svg" : "/assets/menu.svg"} 
-            alt="menu" 
-            className='w-[42px] h-[42px] p-2 object-contain cursor-pointer
+            alt="menu-close-icon" 
+            className='w-[42px] h-[42px] p-2 z-50 object-contain cursor-pointer
             hover:bg-slate-600 hover:rounded-md'
             onClick={() => setToggle(!toggle)} // it will keep on toggling between menu and close icon whenver clicked 
           />
@@ -74,9 +74,9 @@ export const Navbar = () => {
           className = {
             `opacity-1 md:opacity-0
             ${toggle ? "flex-col" : "hidden"} 
-            p-6 z-50 absolute top-0 right-0 duration-500
-            min-w-[200px] bg-black bg-opacity-90 h-full
-            transition delay-800 duration-1000 ease-in`
+            p-6 z-10 absolute top-0 right-0 duration-500
+            min-w-[60%] bg-black bg-opacity-90 h-full
+            transition duration-1000 ease-in`
           }
         >
           <ul className='list-none flex my-10 
@@ -104,33 +104,14 @@ export const Navbar = () => {
           </ul>
 
           {/* Authentication section */}
-          <ButtonGroup className='flex-col items-center gap-5'>
-            <Button
-              className='w-full'
-              variant='outline'
-              color='var(--text-white)'
-              borderRadius='32px'
-              fontSize='14px'
-              _hover={{
-                color: 'var(--text-primary)',
-                background: 'white',
-              }}
-            >
-              Login
-            </Button>
-            <Button
-              className='w-full absolute right-1'
-              background= 'var(--light-gradient)'
-              fontSize='14px'
-              _hover={{
-                background: 'white',
-              }}
-              borderRadius='32px'
-            >
-              Sign up
-            </Button>
+          {!user ? (
+          <ButtonGroup spacing='4'>
+            <Login />
+            <Signup />
           </ButtonGroup>
+          ) : <Logout /> }
         </div>
+        
     </nav>
   )
 }

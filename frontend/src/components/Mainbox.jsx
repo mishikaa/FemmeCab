@@ -24,22 +24,22 @@ export const Mainbox = () => {
         />
     </div>
 
-    <div className='flex flex-wrap justify-evenly items-center mb-3'>
-      <div className='flex justify-center'>
+    <div className='flex justify-around items-center mb-3'>
+      <div className='flex relative justify-center '>
         <button 
           onClick={()=>{user ? navigate('/map') : errorPopup("You need to login first!")}}
-          className='w-[8.75rem] h-[8rem] font-bold text-lg p-4 rounded-xl bg-gradient-to-t from-[#2c3e50] to-[#bdc3c7] tracking-wider
+          className='md:w-[9.1rem] w-[80px] z-10 h-[8rem] absolute left-0 font-bold text-lg p-4 rounded-xl bg-gradient-to-t from-[#2c3e50] to-[#bdc3c7] tracking-wider
           hover:bg-gradient-to-b from-[#2c3e50] to-[#bdc3c7] hover:scale-105 transition'
         >
           Book Now
         </button>
         <img 
-          className='w-[40rem] h-[21rem] relative right-36 rounded-xl object-cover'
+          className='w-[22rem] md:w-[40rem] h-[21rem] rounded-xl object-center'
           style={styles}
           src="/assets/map.jpg" alt="map" 
         />
-        </div>
-      <span className='sm:hidden md:inline text-left text-[3rem]'>Request <h3 className='font-bold'>A Ride Now!</h3></span>
+      </div>
+      <span className='hidden md:inline pr-36 text-left text-[3rem]'>Request <h3 className='font-bold'>A Ride Now!</h3></span>
     </div>
     </>
 
