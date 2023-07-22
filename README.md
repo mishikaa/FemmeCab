@@ -53,6 +53,11 @@ FemmeCab is the first one-of-a-kind women-only cab booking and ride-sharing syst
 ### Confirmation Page
 <img src="Screenshots/confirmPage.png" width="800" height="750">
 
+### Payment 
+<img src="Screenshots/paymentCard.jpg" width="800" height="750">
+<img src="Screenshots/paymentSuccessful.jpg" width="800" height="750">
+<img src="Screenshots/paymentSuccessful2.jpg" width="800" height="750">
+
 ## Built With
 
 * [React](https://react.dev/)
