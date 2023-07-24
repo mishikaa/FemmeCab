@@ -27,7 +27,7 @@ export const Mainbox = () => {
     <div className='flex justify-around items-center mb-3'>
       <div className='flex relative justify-center '>
         <button 
-          onClick={()=>{user ? navigate('/map') : errorPopup("You need to login first!")}}
+          onClick={()=>{user ? navigate('/dashboard') : errorPopup("You need to login first!")}}
           className='md:w-[9.1rem] w-[5.65rem] z-10 h-[8rem] absolute left-0 font-bold text-lg p-4 rounded-xl bg-gradient-to-t from-[#2c3e50] to-[#bdc3c7] tracking-wider
           hover:bg-gradient-to-b from-[#2c3e50] to-[#bdc3c7] hover:scale-105 transition'
         >

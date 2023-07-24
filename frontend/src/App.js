@@ -16,7 +16,7 @@ function App() {
 
       <Routes>
         <Route exact path='/' element={<Homepage />}/>
-        <Route exact path='/map' element={<Mappage />}/>
+        <Route exact path='/dashboard' element={<Mappage />}/>
         <Route exact path='/addLocation' element={<AddLocation />}/>
         <Route exact path='/confirm' element={<Confirm />}/>
         <Route exact path='/rideInProgress' element={<RideInProgress />}/>

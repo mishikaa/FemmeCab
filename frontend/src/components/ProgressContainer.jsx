@@ -1,5 +1,6 @@
 import React from 'react'
 import Profile from './Profile'
+import { successPopup } from './popup'
 
 const rideDetails = {
     name: "Renault Kwid",
@@ -9,7 +10,10 @@ const rideDetails = {
     image: "https://www.transparentpng.com/thumb/car-png/car-free-transparent-png-8.png"
 }
 const ProgressContainer = () => {
-  return (
+    const sendSOS = () => {
+        successPopup('SOS sent successfully!');
+    }
+    return (
         <div className="location-box rounded-t-[2rem] -mt-8 z-10 rounded-b-none flex-0.8 flex flex-col justify-center gap-2 w-[100%]">
             {/* Ride Information section */}
             <div className='flex justify-between w-full'>
@@ -31,13 +35,15 @@ const ProgressContainer = () => {
                         <span>{rideDetails.driver}</span>
                     </div>
                     <a 
-                        href='tel:8004912825'
+                        href='tel:911'
                         className='flex flex-col items-center justify-between'>
                         <img src="/assets/call.png" className='w-10 pt-2 hover:animate-bounce' alt="call-icon" />
                         <span>Call</span>
                     </a>
                     <button 
-                        className='flex flex-col items-center justify-between'>
+                        className='flex flex-col items-center justify-between'
+                        onClick={sendSOS}
+                    >
                         <img src="/assets/camera.png" className='w-11 pt-2 hover:animate-pulse' alt="call-icon" />
                         <span>Emergency</span>
                         
