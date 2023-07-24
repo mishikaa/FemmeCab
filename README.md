@@ -38,28 +38,35 @@
 
 FemmeCab is the first one-of-a-kind women-only cab booking and ride-sharing system that is meticulously designed for the safe and comfortable traveling experience of women in India. FemmeCab aims at empowering women journey with enhanced safety measure, 24/7 availability, prompt pickups, and well-maintained vehicles that is just one click away.
 
+<div align="center">
+  
 ### Home Page
 <img src="Screenshots/homepage.png" width="800" height="750">
 
 ### Mobile View
 <img src="Screenshots/mobile.png" width="800" height="750">
 
-### Map Page
-<img src="Screenshots/mapbox.png" width="800" height="500">
+### Dashboard
+ ![dashboard1](Screenshots/mapbox.png)   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![dashboard2](Screenshots/currentLocation.png) 
+
 
 ### Add Location Page
-<img src="Screenshots/addLocation.png" width="800" height="500">
+<img src="Screenshots/addLocation.png">
 
 ### Confirmation Page
-<img src="Screenshots/confirmPage.png" width="800" height="750">
+ ![confirm1](Screenshots/confirmPage.png)   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![confirm2](Screenshots/confirmPage2.png) 
 
 ### Payment 
-<img src="Screenshots/paymentCard.jpg" width="800" height="750">
-<img src="Screenshots/paymentSuccessful.jpg" width="800" height="750">
-<img src="Screenshots/paymentSuccessful2.jpg" width="800" height="750">
+<img width="48%" align="left" height="650" src="Screenshots/paymentCard.jpg" />
+<img width="48%" align="right" height="650" src="Screenshots/paymentSuccessful.jpg" />
+&nbsp;
+
+### Ride in Progress Page
+<img src="Screenshots/rideInProgress.png">
+</div>
+
 
 ## Built With
-
 * [React](https://react.dev/)
 * [TailwindCSS](https://tailwindcss.com/)
 * [JavaScript](https://www.javascript.com/)
