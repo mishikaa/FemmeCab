@@ -16,10 +16,6 @@ app.use(express.json());
 
 const server_port = process.env.SERVER_PORT;
 
-app.get('/', (req, res) => {
-    res.send("Homepage")
-})
-
 app.use('/api/user', userRoutes);
 
 app.use(cors())
@@ -27,18 +23,17 @@ app.use(cors())
 app.use('/razorpay', paymentRoute);
 
 // DEPLOYMENT
-const __dirname1 = path.resolve()
-app.use(express.static(path.join(__dirname1, "/frontend/build")))
+const __dirname1 = path.resolve();
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname1, "/frontend/build")))
+    app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send("API is running successfully");
+    })
+}
 
-app.get('*', function(_, res) {
-    res.sendFile(
-        path.join(__dirname1, "/frontend/build/index.html"),
-        function(err) {
-            if(err) {
-                res.status(500).send(err);
-            }
-        }
-    )
-})
 app.listen(server_port, 
     console.log(`SERVER STARTED ON PORT ${server_port}`.brightBlue.bold))
