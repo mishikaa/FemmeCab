@@ -13,7 +13,6 @@ router.route('/login').post(authUser)
 
 router.get('/map', protect, (req, res) => {
     console.log("Map route accessed")
-    res.send("Hello")
 })
 
 module.exports = router
