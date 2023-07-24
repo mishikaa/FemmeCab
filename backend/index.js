@@ -27,11 +27,12 @@ app.use(cors())
 app.use('/razorpay', paymentRoute);
 
 // DEPLOYMENT
-app.use(express.static(path.join(__dirname, "./frontend/build")))
+const __dirname1 = path.resolve()
+app.use(express.static(path.join(__dirname1, "/frontend/build")))
 
 app.get('*', function(_, res) {
     res.sendFile(
-        path.join(__dirname, "./frontend/build/index.html"),
+        path.join(__dirname1, "/frontend/build/index.html"),
         function(err) {
             if(err) {
                 res.status(500).send(err);
