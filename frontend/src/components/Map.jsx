@@ -9,8 +9,9 @@ import { useNavigate } from "react-router-dom";
 mapboxgl.accessToken = Config.MAPBOX_ACCESS_TOKEN;
 
 const Map = () => {
-    const {route, pickupCoordinates, setPickupCoordinates, setPickup, dropoffCoordinates, pickup, dropoff, geojson} = RideState()
+    const {route, pickupCoordinates, setPickupCoordinates, setPickup, setDistance, setDuration, dropoffCoordinates, pickup, dropoff, distance, duration, geojson} = RideState()
     const navigate = useNavigate();
+    const [liveLocation, setLiveLocation] = useState(pickupCoordinates);
     var map;
     useEffect(() => {
     
@@ -36,8 +37,8 @@ const Map = () => {
       })
       
       addPoints(map)
-
-      map.on('load', () => {
+      
+      map.on('load', async() => {
         // Adding route
         var rt = {
             type: "FeatureCollection",
@@ -54,6 +55,7 @@ const Map = () => {
 
         map.addSource("route", {
           type: "geojson",
+          lineMetrics: true,
           data: rt,
         });
 
@@ -62,13 +64,99 @@ const Map = () => {
              source: "route",
              type: "line",
              paint: {
-               "line-width": 2,
-               "line-color": "#007cbf",
+               "line-width": 2.8,
+               "line-color": "green",
+               'line-gradient': [
+                  'interpolate',
+                  ['linear'],
+                  ['line-progress'],
+                  0,
+                  '#12FFF7',
+                  0.1,
+                  '#65C7F7',
+                  0.5,
+                  '#00b09b',
+                  0.7,
+                  '#0f9b0f',
+                  1,
+                  '#66ff00'
+                  ]
              },
         });
-  })
+      
+      if(window.location.pathname == '/rideInProgress') {
+      
+        // Realtime location tracking
+      const geojson = await getLocation();
+      // Add a data source containing one point feature.
+      map.addSource('iss', {
+        type: 'geojson',
+        data: geojson
+        });
+
+      map.loadImage(
+            '/assets/realTimeCar.png',
+            (error, image) => {
+            if (error) throw error;
+             
+            // Add the images to the map style.
+            map.addImage('liveCar', image);          
+        })
+
+      // Add the rocket symbol layer to the map.
+      map.addLayer({
+      'id': 'iss',
+      'type': 'symbol',
+      'source': 'iss',
+      'layout': {
+            'icon-image': 'liveCar', // reference the image
+            'icon-size': 0.13,
+      }
+      });
+      
+      // Update the source from the API every 2 seconds.
+      // const updateSource = setInterval(async () => {
+      // const geojson = await getLocation(updateSource);
+      // map.getSource('iss').setData(geojson);
+      // }, 2000);
     }
-  }, [pickupCoordinates, dropoffCoordinates]); //run it again if there is any change in these
+      async function getLocation(updateSource) {
+          // Make a GET request to the API and return the location of the ISS.
+          try {
+              if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(function(position) {
+                  setLiveLocation([position.coords.longitude, position.coords.latitude])
+                  // console.log("Latitude is :", position.coords.longitude);
+                  // console.log("Longitude is :", position.coords.latitude);
+                });
+              }
+              // Fly the map to the location.
+              map.flyTo({
+                  center: [liveLocation[0], liveLocation[1]],
+                  speed: 0.5
+              });
+              
+              // Return the location of the ISS as GeoJSON.
+              return {
+              'type': 'FeatureCollection',
+              'features': [
+                  {
+                  'type': 'Feature',
+                  'geometry': {
+                  'type': 'Point',
+                  'coordinates': [liveLocation[0], liveLocation[1]]
+                  }
+                  }
+              ]
+            };
+          } catch (err) {
+              // If the updateSource interval is defined, clear the interval to stop updating the source.
+              if (updateSource) clearInterval(updateSource);
+              throw new Error(err);
+          }
+      }
+      })
+  }}, [pickupCoordinates, dropoffCoordinates]); //run it again if there is any change in these
   
 
     // Function to add markers in the map

@@ -4,6 +4,7 @@ import Config from "../config.json";
 
 const AddRoute = ({setRideDuration}) => {
     const {pickupCoordinates, dropoffCoordinates, setDuration, setDistance, setRoute} = RideState();
+
     useEffect(() => {
          fetch(
           `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?geometries=geojson&access_token=${Config.MAPBOX_ACCESS_TOKEN}`
@@ -23,7 +24,7 @@ const AddRoute = ({setRideDuration}) => {
          
           // console.log(route)
   
-    }, [pickupCoordinates, dropoffCoordinates])
+    }, [])
 }
 
 export default AddRoute

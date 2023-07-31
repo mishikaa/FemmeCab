@@ -24,7 +24,7 @@ export const Mainbox = () => {
         />
     </div>
 
-    <div className='flex justify-around items-center mb-3'>
+    <div className='flex justify-between items-center mb-3 gap-5'>
       <div className='flex relative justify-center '>
         <button 
           onClick={()=>{user ? navigate('/dashboard') : errorPopup("You need to login first!")}}
@@ -39,7 +39,7 @@ export const Mainbox = () => {
           src="/assets/map.jpg" alt="map" 
         />
       </div>
-      <span className='hidden md:inline pr-36 text-left text-[3rem]'>Request <h3 className='font-bold'>A Ride Now!</h3></span>
+      <span className='hidden md:inline pr-36 text-left text-[3rem]'><span>Request</span><h3 className='font-bold'>A Ride Now!</h3></span>
     </div>
     </>
 

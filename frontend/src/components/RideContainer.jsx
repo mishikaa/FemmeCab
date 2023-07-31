@@ -32,7 +32,6 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
            }
        })
        
-        console.log(route)
 
     }, [pickupCoordinates, dropoffCoordinates])
     

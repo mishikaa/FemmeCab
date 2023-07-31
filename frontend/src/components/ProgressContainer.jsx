@@ -1,6 +1,7 @@
 import React from 'react'
 import Profile from './Profile'
 import { successPopup } from './popup'
+import { useNavigate } from 'react-router-dom'
 
 const rideDetails = {
     name: "Renault Kwid",
@@ -10,7 +11,10 @@ const rideDetails = {
     image: "https://www.transparentpng.com/thumb/car-png/car-free-transparent-png-8.png"
 }
 const ProgressContainer = () => {
+    const navigate = useNavigate();
+
     const sendSOS = () => {
+        navigate('/camera')
         successPopup('SOS sent successfully!');
     }
     return (

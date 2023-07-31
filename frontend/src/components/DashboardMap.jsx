@@ -19,7 +19,6 @@ const DashboardMap = () => {
           center: [78.182831, 26.218287],
           zoom: 9
         });
-    
         // Initialising geolocateControl for current location detection
         const geolocate = 
           new mapboxgl.GeolocateControl({
@@ -47,7 +46,7 @@ const DashboardMap = () => {
         if(currentLocationCoordinates) {
             getPlace(currentLocationCoordinates, setCurrentLocation);
             addToMap(map, currentLocationCoordinates, "#f4a261", currentLocation, "Current location: ");
-            console.log(currentLocation)
+            // console.log(currentLocation)
     }
     
     addPoints(map)    
