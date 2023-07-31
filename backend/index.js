@@ -18,7 +18,11 @@ const server_port = process.env.SERVER_PORT;
 
 app.use('/api/user', userRoutes);
 
-app.use(cors())
+app.use(cors({
+    origin: ["https://femme-cab-frontend.vercel.app"],
+    methods: ["POST, GET"],
+    credentials: true
+}))
 
 app.use('/razorpay', paymentRoute);
 
