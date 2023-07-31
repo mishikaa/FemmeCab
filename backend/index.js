@@ -23,10 +23,10 @@ app.use(cors())
 app.use('/razorpay', paymentRoute);
 
 // DEPLOYMENT
-const __dirname1 = path.resolve();
-if(process.env.NODE_ENV === "production") {
-    app.use("/", express.static(path.join(__dirname1, "frontend", "build")))
-    app.get('*', (req, res) => {
+if(process.env.NODE_ENV == "production") {
+    const __dirname1 = path.resolve();
+    app.use(express.static(path.resolve(__dirname1, "frontend", "build")))
+    app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
     });
 } else {
