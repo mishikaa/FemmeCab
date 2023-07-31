@@ -74,13 +74,12 @@ const Signup = () => {
       
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
-      navigate('/');
+      window.location.reload()
       
       }
       catch(error) {
         errorPopup(`Error Occured! ${error.response.data.message}`);
         setLoading(false);
-        window.location.reload()
 
       }
     };
