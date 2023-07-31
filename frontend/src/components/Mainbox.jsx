@@ -13,7 +13,7 @@ export const Mainbox = () => {
   return (
     <>
     <div 
-      className='flex flex-wrap justify-around items-center my-5 gap-6 p-3'
+      className='flex flex-wrap justify-around items-center my-5 sm:gap-6 md:gap-20 p-3'
     >
         <h1 className='uppercase font-bold text-5xl'>"for women, by women"</h1>
         <img 
@@ -24,7 +24,7 @@ export const Mainbox = () => {
         />
     </div>
 
-    <div className='flex justify-between items-center mb-3 gap-5'>
+    <div className='flex justify-between items-center mb-3 gap-16'>
       <div className='flex relative justify-center '>
         <button 
           onClick={()=>{user ? navigate('/dashboard') : errorPopup("You need to login first!")}}
@@ -39,7 +39,7 @@ export const Mainbox = () => {
           src="/assets/map.jpg" alt="map" 
         />
       </div>
-      <span className='hidden md:inline pr-36 text-left text-[3rem]'><span>Request</span><h3 className='font-bold'>A Ride Now!</h3></span>
+      <span className='hidden md:inline ml-6 pr-36 text-left text-[3rem]'><span>Request</span><h3 className='font-bold'>A Ride Now!</h3></span>
     </div>
     </>
 
