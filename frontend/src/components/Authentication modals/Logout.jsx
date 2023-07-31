@@ -13,6 +13,8 @@ const Logout = () => {
             localStorage.removeItem('userInfo')
             navigate('/')
             successPopup('Logged out!')
+            window.location.reload()
+
             }
         }
     return (

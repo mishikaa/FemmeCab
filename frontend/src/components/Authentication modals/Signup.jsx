@@ -79,8 +79,9 @@ const Signup = () => {
       }
       catch(error) {
         errorPopup(`Error Occured! ${error.response.data.message}`);
-    
         setLoading(false);
+        window.location.reload()
+
       }
     };
     
