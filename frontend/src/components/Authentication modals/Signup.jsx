@@ -28,6 +28,8 @@ const Signup = () => {
     confirmPassword: ""
   });
   
+  axios.defaults.withCredentials = true;
+
   const handleChange=(event)=>{
     const {name, value} = event.target;
     setformData(prevData => {
@@ -62,12 +64,11 @@ const Signup = () => {
           'Content-type': "application/json"    
         }
       };
-  
+
       const {data} = await axios.post(
-        "/api/user",
+        "https://femme-cab-api.vercel.app/api/user",
         {email: formData.email, password: formData.password},
-        config
-      ); 
+        config); 
       
       successPopup('Registration successful!')
       

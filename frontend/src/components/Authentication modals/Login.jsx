@@ -5,6 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const  Login = () => {
+  axios.defaults.withCredentials = true;
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   // For modal 
@@ -47,7 +49,7 @@ const  Login = () => {
         'Content-type': "application/json"    
       }
     };
-
+         
     const {data} = await axios.post(
       "https://femme-cab-api.vercel.app/api/user/login",
       {email: formData.email, password: formData.password},
