@@ -6,6 +6,6 @@ const router = express.Router();
 
 // POST REQUEST FOR Payment
 router.route('/')
-    .post(makePayment)
+    .post(protect, makePayment)
 
 module.exports = router

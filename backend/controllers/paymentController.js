@@ -25,18 +25,19 @@ const makePayment = expressAsyncHandler(async(req, res) => {
     try {
         const response = await razorpay.orders.create(options)
 
-        console.log(response)
+        // console.log(response)
         
+        const payment = await Payment.create({
+            amount: amount, 
+            receipt: `pay_${response.id.split("_")[1]}`,
+            user: req.user._id
+        })
+
         res.json({
             id: response.id,
             currency: response.currency,
             amount: response.amount
         })
-        // const payment = await Payment.create({
-        //     amount: amount, 
-        //     receipt: `pay_${response.id.split("_")[1]}`,
-        //     user: req.user._id
-        // })
 
         // if(payment) {
         // res.status(201).json({
