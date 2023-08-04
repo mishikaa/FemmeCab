@@ -1,12 +1,14 @@
 <p align="center">
   <a href="https://github.com/mishikaa/FemmeCab">
-    <img src="frontend/public/assets/logo.png" alt="logo" width="80" height="80">
+    <img src="frontend/public/assets/logo.jpg" alt="logo" width="85" height="80">
   </a>
 
   <h3 align="center">FemmeCab</h3>
 
   <p align="center">
-    A women-only cab booking system 
+    A women-only cab booking system
+    <br/>
+    <a href="https://femme-cab.vercel.app/">See Live🌐</a>
     <br/>
     <br/>
     .
