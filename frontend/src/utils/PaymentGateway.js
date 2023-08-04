@@ -1,7 +1,5 @@
-import { RideState } from "../Context_API/provider"
-
 const displayRazorpay = async(razorpay_key, paymentPrice, setPayment_id) => {
-    const {user} = RideState();
+    
     const data = await fetch(`https://femme-cab-api.vercel.app/razorpay?price=${paymentPrice}`, {
         method: 'POST'
     }).then((t) => t.json())
@@ -20,7 +18,7 @@ const displayRazorpay = async(razorpay_key, paymentPrice, setPayment_id) => {
         },
         prefill: {
             name: 'Mishika',
-            email: user.email,
+            email: 'abc@gmail.com',
             contact: '4365476567'
         }
     }
