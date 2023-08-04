@@ -30,7 +30,7 @@ const makePayment = expressAsyncHandler(async(req, res) => {
         const payment = await Payment.create({
             amount: amount, 
             receipt: `pay_${response.id.split("_")[1]}`,
-            user: req.user._id
+            // user: req.user._id
         })
 
         res.json({
