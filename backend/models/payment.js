@@ -6,7 +6,7 @@ const PaymentSchema = new Schema({
     amount: {
         type: Number
     },
-    receipt: {
+    transaction_id: {
         type: String
     }, 
     user: {
