@@ -9,6 +9,7 @@ import { Confirm } from './pages/Confirm';
 import RideInProgress from './pages/RideInProgress';
 import { Contact } from './pages/Contact';
 import { Camera } from './components/Camera';
+import { About } from './pages/About';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Homepage />}/>
         <Route exact path='/contact' element={<Contact />}/>
+        <Route exact path='/about' element={<About />}/>
         <Route exact path='/dashboard' element={<Mappage />}/>
         <Route exact path='/addLocation' element={<AddLocation />}/>
         <Route exact path='/confirm' element={<Confirm />}/>
