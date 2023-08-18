@@ -5,6 +5,7 @@
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@chakra-ui/react": "^2.7.0",
+    "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
