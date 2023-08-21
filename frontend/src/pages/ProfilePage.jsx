@@ -22,8 +22,8 @@ const ProfilePage = () => {
             };
                  
             const {data} = await axios.get(
-              `https://femme-cab-api.vercel.app/api/user/fetchProfile/${user.email}`,
-            //   `http://localhost:5000/api/user/fetchProfile/${user.email}`,
+            //   `https://femme-cab-api.vercel.app/api/user/fetchProfile/${user.email}`,
+              `http://localhost:5000/api/user/fetchProfile/${user.email}`,
               config
             ); 
             

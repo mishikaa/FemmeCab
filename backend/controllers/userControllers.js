@@ -76,18 +76,14 @@ const fetchProfile = expressAsyncHandler(async(req, res) => {
 const editProfile = expressAsyncHandler(async(req, res) => {
     const {email} = req.body;
     const user = await User.findOne({email})
+    // console.log(user)
     let updatedData = {user, ...req.body}
-    let userData;
-    if(user) {
-        userData = user.findOneAndUpdate({email}, {$set: {updatedData}},
-        {
-            new: true //return as the updated value of the profile
-        });
-    } else {
-        res.status(401);
-        throw new Error("User not found")
-    }
-
+    // console.log(updatedData)
+    let userData = await User.findOneAndUpdate({email}, updatedData,
+    {
+        new: true //return as the updated value of the profile
+    });
+    
     if(userData) {
         return res.json({
             name: user?.name,
