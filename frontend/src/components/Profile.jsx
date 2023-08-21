@@ -10,7 +10,7 @@ const Profile = () => {
        user && 
        (
         <Avatar 
-          className='p-0.5 m-2 cursor-pointer'
+          className='p-0.5 m-2 cursor-pointer border-2 shadow-[0_3px_10px_#4f5d75]'
           name={user.email}
           src={user.profilePhoto !== 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg' && user.profilePhoto}
           bg='#264653' 
