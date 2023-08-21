@@ -79,7 +79,7 @@ const editProfile = expressAsyncHandler(async(req, res) => {
     let updatedData = {user, ...req.body}
     let userData;
     if(user) {
-        userData = user.findOneAndUpdate({email}, {$set: updatedData},
+        userData = user.findOneAndUpdate({email}, {$set: {updatedData}},
         {
             new: true //return as the updated value of the profile
         });
