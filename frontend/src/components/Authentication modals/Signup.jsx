@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { Button, ButtonGroup, FormControl, FormLabel, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from "@chakra-ui/react"
 import { MdEmail } from "react-icons/md"
 import { FaGoogle } from "react-icons/fa"
 
@@ -23,6 +23,7 @@ const Signup = () => {
 
   // For form data
   const [formData, setformData] = useState({
+    name: "",
     email: "",
     password: "",
     confirmPassword: ""
@@ -67,18 +68,19 @@ const Signup = () => {
 
       const {data} = await axios.post(
         "https://femme-cab-api.vercel.app/api/user",
-        {email: formData.email, password: formData.password},
+        // "http://localhost:5000/api/user",
+        {name: formData.name, email: formData.email, password: formData.password},
         config); 
       
-      successPopup('Registration successful!')
-      
+        
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
       window.location.reload()
+      successPopup('Registration successful!')
       
       }
       catch(error) {
-        errorPopup(`Error Occured! ${error.response.data.message}`);
+        errorPopup(`Failed to signup! Please try again.`);
         setLoading(false);
 
       }
@@ -91,9 +93,10 @@ const Signup = () => {
       signInWithPopup(auth, provider).then((data) => {
       setformData(data.user.email)
       
+      console.log(data);
+      
       const sentData = {
         email: data.user.email,
-        profilePhoto: data.user.photoURL,
         token: data._tokenResponse.idToken,
         _id: data.user.uid
       }
@@ -111,17 +114,12 @@ const Signup = () => {
 
   return (
     <>
-        <Button
-            onClick={onOpen}
-            background= 'var(--light-gradient)'
-            fontSize='14px'
-            _hover={{
-              background: 'white',
-            }}
-            borderRadius='32px'
+        <button
+          onClick={onOpen}
+          className="py-2 px-4 rounded-[32px] bg-gradient-to-r from-[#E2E2E2] to-[#C9D6FF] text-[14px] font-bold text-[var(--text-primary)] hover:from-white hover:to-white hover:scale-105 ease-in duration-200"
         >
-          Sign up
-        </Button>
+            Sign up
+        </button>
 
       <Modal
         isCentered
@@ -131,10 +129,21 @@ const Signup = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader className="text-center uppercase font-extrabold">Signup</ModalHeader>
+          <ModalHeader className="text-center bg-['#cbf3f0'] uppercase font-extrabold">Signup</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
+          <ModalBody className="bg-['#cbf3f0'] flex-col items-center justify-center" pb={6}>
             <FormControl>
+              <FormLabel>Name</FormLabel>
+              <Input 
+                type='name'
+                name="name"
+                isRequired
+                onChange={handleChange}
+                value={formData.name}
+                placeholder='Enter your Name' 
+               />
+            </FormControl>
+            <FormControl mt={4}>
               <FormLabel>Email</FormLabel>
               <Input 
                 type='email'
@@ -182,7 +191,7 @@ const Signup = () => {
                 />
             </FormControl>
           </ModalBody>
-          
+
           <Button 
             leftIcon={<MdEmail />}
             m={3}
@@ -195,7 +204,8 @@ const Signup = () => {
             Signup with Email
           </Button>
 
-          <span className="text-center">or,</span>
+          <div className="text-center">or, Signup with</div>
+
           <Button 
             leftIcon={<FaGoogle />}
             colorScheme='red'
@@ -204,8 +214,9 @@ const Signup = () => {
             isDisabled={googleLoading}
             m={3}
             py={6}>
-            Sign up with Google
+            Google
           </Button>
+
         </ModalContent>
       </Modal>
     </>

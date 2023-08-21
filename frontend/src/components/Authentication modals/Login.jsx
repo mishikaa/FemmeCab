@@ -15,7 +15,6 @@ const  Login = () => {
 
   // For Loading state
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   // For form data
   const [formData, setformData] = useState({
@@ -51,20 +50,22 @@ const  Login = () => {
     };
          
     const {data} = await axios.post(
-      "https://femme-cab-api.vercel.app/api/user/login",
+      // "https://femme-cab-api.vercel.app/api/user/login",
+      "http://localhost:5000/api/user/login",
       {email: formData.email, password: formData.password},
       config
     ); 
     
-    successPopup('Login successful!')
     
     localStorage.setItem('userInfo', JSON.stringify(data));
     setLoading(false);
+    successPopup('Login successful!')
+    
     window.location.reload()
 
     }
     catch(error) {
-      errorPopup(`Error Occured! ${error.response.data.message}`);
+      errorPopup(`Invalid email or password`);
   
       setLoading(false);
     }
@@ -72,19 +73,12 @@ const  Login = () => {
   
   return (
     <>
-        <Button
-            variant='outline'
-            onClick={onOpen}
-            color='var(--text-white)'
-            borderRadius='32px'
-            fontSize='14px'
-            _hover={{
-              color: 'var(--text-primary)',
-              background: 'white',
-            }}
+        <button
+          onClick={onOpen}
+          className="border p-2 px-4 rounded-[32px] text-[14px] font-bold hover:bg-white hover:text-[var(--text-primary)]  hover:scale-105 ease-in duration-200"
         >
             Login
-        </Button>
+        </button>
       <Modal
         isCentered
         blockScrollOnMount={false}

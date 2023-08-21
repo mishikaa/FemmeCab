@@ -6,6 +6,9 @@ const RideContext = createContext();
 
 const Provider = ({children}) => {
     const [user, setUser] = useState({});
+    const [profile, setProfile] = useState({});
+    const [fetchAgain, setFetchAgain] = useState(false)
+
     const [pickupCoordinates, setPickupCoordinates] = useState([0,0]);
     const [dropoffCoordinates, setDropoffCoordinates] = useState([0,0]);
     const [pickup, setPickup] = useState()
@@ -26,7 +29,7 @@ const Provider = ({children}) => {
     }, []) //whenever navigate changes it's gonna run again
     
     return (
-        <RideContext.Provider value={{user, setUser, pickup, setPickup, pickupCoordinates, setPickupCoordinates, dropoff, setDropoff, dropoffCoordinates, setDropoffCoordinates, duration, setDuration, distance, setDistance, geojson, setGeojson, route, setRoute, paymentPrice, setPaymentPrice}}>
+        <RideContext.Provider value={{user, setUser, profile, setProfile, fetchAgain, setFetchAgain, pickup, setPickup, pickupCoordinates, setPickupCoordinates, dropoff, setDropoff, dropoffCoordinates, setDropoffCoordinates, duration, setDuration, distance, setDistance, geojson, setGeojson, route, setRoute, paymentPrice, setPaymentPrice}}>
             {children}
         </RideContext.Provider>
     )

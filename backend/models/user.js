@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const { timeStamp } = require('console');
 
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    name: {
+        type: String,
+    },
     email: {
         type: String,
         required: true,
@@ -16,6 +20,22 @@ const UserSchema = new Schema({
     profilePhoto: {
         type: String,
         default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+    },
+    phoneNumber: {
+        type: Number,
+    },
+    savedAddress: {
+        type: String
+    },
+    emergencyContact: {
+        type: Number
+    },
+    dob: {
+        type: Date
+    },
+    joiningDate: {
+        type : Date, 
+        default: Date.now()
     }
 });
 

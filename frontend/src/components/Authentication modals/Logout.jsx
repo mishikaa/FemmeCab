@@ -2,15 +2,18 @@ import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { RideState } from '../../Context_API/provider';
 import { successPopup } from '../popup';
+import { useNavigate } from 'react-router-dom';
 
 const Logout = () => {
     const {user} = RideState();
+    const navigate = useNavigate();
     
     const handleClick=()=>{
         if(user) {
             localStorage.removeItem('userInfo')
-            successPopup('Logged out!')
+            navigate('/');
             window.location.reload()
+            successPopup('Logged out!')
             }
         }
     return (
