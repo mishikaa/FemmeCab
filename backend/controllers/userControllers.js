@@ -1,6 +1,7 @@
 const expressAsyncHandler = require("express-async-handler");
 const User = require("../models/user");
 const generateToken = require("../config/generateToken");
+const user = require("../models/user");
 
 const registerUser = expressAsyncHandler(async(req, res) => {
     const {name, email, password, profilePhoto} = req.body;
@@ -73,28 +74,21 @@ const fetchProfile = expressAsyncHandler(async(req, res) => {
 })
 
 const editProfile = expressAsyncHandler(async(req, res) => {
-    const {email, name, phoneNumber, savedAddress, emergencyContact, dob} = req.body;
-    const user = await User.findOneAndUpdate({email,
-    $or: [ 
-      { name: { $ne: name }},
-      { phoneNumber: { $ne: phoneNumber }},
-      { savedAddress: { $ne: savedAddress }},
-      { emergencyContact: { $ne: emergencyContact }},
-      { dob: { $ne: dob }},
-    ]
-    },
-    {
-        $set: {
-          name: name,
-          phoneNumber: phoneNumber,
-          savedAddress: savedAddress,
-          emergencyContact:  emergencyContact,
-          dob: dob
-        }},
-    {
-        new: true //return as the updated value of the profile
-    });
+    const {email} = req.body;
+    const user = await User.findOne({email})
+    let updatedData = {user, ...req.body}
+    let userData;
     if(user) {
+        userData = user.findOneAndUpdate({email}, {$set: updatedData},
+        {
+            new: true //return as the updated value of the profile
+        });
+    } else {
+        res.status(401);
+        throw new Error("User not found")
+    }
+
+    if(userData) {
         return res.json({
             name: user?.name,
             phoneNumber: user?.phoneNumber,
