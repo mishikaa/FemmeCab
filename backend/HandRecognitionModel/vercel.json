@@ -1,7 +1,9 @@
 {
-  "functions": {
-    "api/process_stream": {
-      "memory": 512
-    }
-  }
+    "version": 2,
+    "builds": [
+      { "src": "api/process_stream.py", "use": "@vercel/python" }
+    ],
+    "routes": [
+      { "src": "/api/process_stream", "dest": "api/process_stream.py" }
+    ]
 }
