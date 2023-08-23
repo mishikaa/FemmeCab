@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, FormControl, FormLabel, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure } from "@chakra-ui/react"
 import { MdEmail } from "react-icons/md"
 import { FaGoogle } from "react-icons/fa"
+  // "proxy": ["http://127.0.0.1:5000", "https://gender-api.com"],
 
 import {  useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -9,6 +10,7 @@ import axios from "axios"
 
 import { signInWithPopup } from "firebase/auth"
 import { auth, provider } from "../FirebaseAuthentication/firebase";
+import Config from "../../config.json";
 
 const Signup = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -44,13 +46,34 @@ const Signup = () => {
   const submitHandler = async() => {
     setLoading(true);
 
-    if(!formData.email || !formData.password || !formData.confirmPassword) {
+    if(!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
       errorPopup('Enter all the required fields.')
     
       setLoading(false);
       return;
     }
     
+    // Identity verification
+    const data = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
+      method: 'GET',
+      mode: 'cors'
+    })
+    // console.log(data);
+    
+    if(data.gender != "female") {
+        errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
+        setLoading(false);
+        setformData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        });
+        navigate('/contact')
+        return;
+    }
+
+
     // if the entered password is not same as the confirm pasword field
     if(formData.password !== formData.confirmPassword) {
       errorPopup('Passwords do not match. Please try again!');

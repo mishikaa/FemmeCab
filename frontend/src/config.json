@@ -1,4 +1,5 @@
 {
   "RAZORPAY_KEY": "rzp_test_vsfted48qZkwiX",
-  "MAPBOX_ACCESS_TOKEN": "pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA"
+  "MAPBOX_ACCESS_TOKEN": "pk.eyJ1IjoibWlzaGlrYSIsImEiOiJjbGNxazRrbHkwNm5vM3ZwaGM5NW9qOWV1In0.b3f4yO2rsQzq6i-HS8zqEA",
+  "GENDER_API_KEY": "e4ff5041d3754ee1227f33ea0ba7614a348948caa0e2e21e48310affb4374176"
 }
