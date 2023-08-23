@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Profile from './Profile'
 import { successPopup } from './popup'
 import { useNavigate } from 'react-router-dom'
+import { RideState } from '../Context_API/provider'
 
 const rideDetails = {
     name: "Renault Kwid",
@@ -12,7 +13,10 @@ const rideDetails = {
 }
 const ProgressContainer = () => {
     const navigate = useNavigate();
-
+    const {profile} = RideState();
+    
+    console.log(`Profile: ${profile.emergencyContact}`)
+    
     const sendSOS = () => {
         navigate('/camera')
         successPopup('SOS sent successfully!');
@@ -39,7 +43,7 @@ const ProgressContainer = () => {
                         <span>{rideDetails.driver}</span>
                     </div>
                     <a 
-                        href='tel:911'
+                        href= {profile.emergencyContact ? `tel: ${profile.emergencyContact}` : `tel: ${911}`}
                         className='flex flex-col items-center justify-between'>
                         <img src="/assets/call.png" className='w-10 pt-2 hover:animate-bounce' alt="call-icon" />
                         <span>Call</span>

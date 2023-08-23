@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/process_stream": {
+      "memory": 512
+    }
+  }
+}

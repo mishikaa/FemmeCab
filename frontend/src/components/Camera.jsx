@@ -1,72 +1,111 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Webcam from "react-webcam";
+import axios from 'axios';
+import { Button } from '@chakra-ui/react';
+import './Camera.css';
+import { successPopup } from './popup';
+
 
 export const Camera = () => {
+    
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     const navigate = useNavigate();
     
-    const detect = async (net) => {
-    // Check data is available
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
-    ) {
-      // Get Video Properties
-      const video = webcamRef.current.video;
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
+    const [gestureResult, setGestureResult] = useState('');
+    const [webcamActive, setWebcamActive] = useState(false);
 
-      // Set video width
-      webcamRef.current.video.width = videoWidth;
-      webcamRef.current.video.height = videoHeight;
+    useEffect(() => {
+    const interval = setInterval(() => {
+      captureAndProcessFrame();
+    }, 100); // Adjust the interval as needed
 
-      // Set canvas height and width
-      canvasRef.current.width = videoWidth;
-      canvasRef.current.height = videoHeight;
+    return () => clearInterval(interval);
+  }, [webcamActive]);
+   
+  const captureAndProcessFrame = async () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = webcamRef.current.videoWidth;
+    canvas.height = webcamRef.current.videoHeight;
+    canvas.getContext('2d').drawImage(webcamRef.current, 0, 0);
+    const frame = canvas.toDataURL('image/jpeg');
+
+    try {
+      const base64String = frame.replace(/^data:image\/jpeg;base64,/, '');
+      const response = await axios.post('http://localhost:5000/api/webcam/process_stream', { frame: base64String });
+
+      const canvasCtx = canvasRef.current.getContext('2d');
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw landmarks on canvas
+      const landmarks = response.data.landmarks;
+      if (landmarks) {
+        landmarks.forEach(landmark => {
+          const [x, y] = landmark;
+          canvasCtx.beginPath();
+          canvasCtx.arc(x, y, 5, 0, 2 * Math.PI);
+          canvasCtx.fillStyle = 'red';
+          canvasCtx.fill();
+          canvasCtx.closePath();
+        });
+      }
+
+      setGestureResult(response.data.gesture_result);
+    } catch (error) {
+      console.error(error);
     }
-}
-    return (
-    <div className='flex h-[100vh] overflow-hidden justify-center items-center'>
+  };
+  
+  const startWebcam = async () => {
+      setWebcamActive(true);
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      webcamRef.current.srcObject = stream;
+  };
+
+  const stopWebcam = () => {
+    setWebcamActive(false);
+    const tracks = webcamRef.current.srcObject.getTracks();
+    tracks.forEach(track => track.stop());
+    setGestureResult("")
+  };
+
+  const SendSOS = () => {
+      const {res} = axios.post('http://localhost:5000/api/messages', {
+          message: `I need help! My current location is: ${123}.`,
+          to: 8004912825
+        })
+      
+      const data = res.json();
+      console.log(data);
+      successPopup("SOS sent successfully!")
+  }
+  return (
+    
+    <div className='h-[100vh] flex flex-col gap-5 items-center'>
+      <div className='flex flex-row justify-between items-center'>
         <img 
         className="cursor-pointer rounded-full bg-white p-1 w-8 hover:w-9 absolute top-4 left-4 z-10 shadow-md" 
         src="/assets/arrows/blackBack.png" 
         alt="back"
         onClick={()=>navigate("/rideInProgress")}
       />
-        <h1 className='absolute text-2xl top-5 bold-xl uppercase font-extrabold'>
+        <h1 className='text-2xl p-4 bold-xl uppercase font-extrabold'>
             Show hand gesture in case of an emergency 
         </h1>
-        <Webcam
-            ref={webcamRef}
-            className='md:w-[40rem] md:h-[30rem] sm:w-[320px] sm:h-[240px] m-auto absolute left-0 right-0 text-center rounded-xl border-2 border-[rgba(0,98,90,0.4)] shadow-[5px_5px_rgba(0,_98,_90,_0.4),_10px_10px_rgba(0,_98,_90,_0.3),_15px_15px_rgba(0,_98,_90,_0.2),_20px_20px_rgba(0,_98,_90,_0.1),_25px_25px_rgba(0,_98,_90,_0.05)]'
-        />
+      </div>
+      
+      <Button onClick={startWebcam}>Start Webcam</Button>
+      <Button onClick={stopWebcam}>Stop Webcam</Button>
+      
+      {gestureResult && <p className=''>Gesture Result: {gestureResult}</p>}
+      
+      <div className="video-container">
+        <video ref={webcamRef} autoPlay className="video" />
+        <canvas ref={canvasRef} width={webcamRef.current?.videoWidth} height={webcamRef.current?.videoHeight} className="landmark-canvas" />
+      </div>
 
-        <canvas
-          ref={canvasRef}
-          className='md:w-[40rem] md:h-[30rem] sm:w-[320px] sm:h-[240px] m-auto z-9 absolute left-0 right-0 text-center'
-        />
-        {/* NEW STUFF
-        {emoji !== null ? (
-          <img
-            src={images[emoji]}
-            style={{
-              position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: 400,
-              bottom: 500,
-              right: 0,
-              textAlign: "center",
-              height: 100,
-            }}
-          />
-        ) : (
-          ""
-        )} */}
-
+      {/* {gestureResult && SendSOS} */}
     </div>
   )
 }

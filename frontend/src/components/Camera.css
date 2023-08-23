@@ -1,0 +1,19 @@
+/* Your CSS file, e.g., App.css */
+.video-container {
+    position: relative;
+}
+
+.video {
+    display: block;
+    max-width: 100%;
+}
+
+.landmark-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    /* Make sure the canvas doesn't interfere with interactions */
+    z-index: 1;
+    /* Make the canvas appear above the video */
+}
