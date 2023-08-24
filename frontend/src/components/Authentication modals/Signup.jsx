@@ -130,8 +130,8 @@ const Signup = () => {
         };
   
         const {data} = axios.post(
-          // "https://femme-cab-api.vercel.app/api/user",
-          "http://localhost:5000/api/user",
+          "https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user",
+          // "http://localhost:5000/api/user",
           {email: formData.email},
           config); 
         
