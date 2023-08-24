@@ -14,7 +14,7 @@ connectDB(); //Invoking the function for connecting the database
 
 const server_port = process.env.SERVER_PORT;
 
-origin: ["http://localhost:3000"],
+// origin: ["http://localhost:3000"],
 
 app.use(cors({
     origin: ["https://femme-cab.vercel.app"],
