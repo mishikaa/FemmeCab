@@ -60,21 +60,21 @@ const Signup = () => {
     })
 
     const data = await res.json();
-    console.log(data);
     
-    if(data.gender != "female") {
-        errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
-        setLoading(false);
-        setformData({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: ""
-        });
-        navigate('/contact')
-        return;
+    if(data){
+      if(data.gender != "female") {
+          errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
+          setLoading(false);
+          setformData({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
+          });
+          navigate('/contact')
+          return;
+      }
     }
-
 
     // if the entered password is not same as the confirm pasword field
     if(formData.password !== formData.confirmPassword) {
