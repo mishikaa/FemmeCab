@@ -58,7 +58,7 @@ const Signup = () => {
       method: 'GET',
       mode: 'cors'
     })
-    console.log(data);
+    console.log(data.body);
     
     if(data["gender"] != "female") {
         errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
