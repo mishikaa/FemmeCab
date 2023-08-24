@@ -29,7 +29,6 @@ const ProfilePage = () => {
                  
             const {data} = await axios.get(
               `https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/fetchProfile/${user.email}`,
-            //   `http://localhost:5000/api/user/fetchProfile/${user.email}`,
               config
             ); 
             
