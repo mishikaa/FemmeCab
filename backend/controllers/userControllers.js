@@ -6,38 +6,7 @@ const generateToken = require("../config/generateToken");
 const registerUser = expressAsyncHandler(async(req, res) => {
     const {name, email, password, profilePhoto} = req.body;
 
-    if(!email || !password) {
-        res.status(400);
-        throw new Error("Please fill all the required fields");
-    }
-
-    const userExists = await User.findOne({email})
-    if(userExists) {
-        res.status(400)
-        throw new Error("User already exists. Login")
-    }
-
-    const user = await User.create({name, email, password, profilePhoto});
-
-    // if user has been successfully created in the database
-    if(user) {
-        res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            profilePhoto: user.profilePhoto,
-            token: generateToken(user._id)
-        })
-    } else {
-        res.status(400)
-        throw new Error("User registration failed.")
-    }
-})
-
-const registerGoogleUser = expressAsyncHandler(async(req, res) => {
-    const {email, profilePhoto} = req.body;
-
-    if(!email) {
+    if(!email && !password) {
         res.status(400);
         throw new Error("Please fill all the required fields");
     }

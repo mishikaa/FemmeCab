@@ -50,8 +50,7 @@ const  Login = () => {
     };
          
     const {data} = await axios.post(
-      // "https://femme-cab-api.vercel.app/api/user/login",
-      "http://localhost:5000/api/user/login",
+      "https://femme-cab-api.vercel.app/api/user/login",
       {email: formData.email, password: formData.password},
       config
     ); 
