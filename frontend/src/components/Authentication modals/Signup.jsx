@@ -46,7 +46,7 @@ const Signup = () => {
   const submitHandler = async() => {
     setLoading(true);
 
-    if(!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if(!formData.email || !formData.password || !formData.confirmPassword) {
       errorPopup('Enter all the required fields.')
     
       setLoading(false);
@@ -60,7 +60,7 @@ const Signup = () => {
     })
     // console.log(data);
     
-    if(data.gender != "female") {
+    if(data["gender"] != "female") {
         errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
         setLoading(false);
         setformData({
