@@ -1,6 +1,6 @@
 const displayRazorpay = async(razorpay_key, paymentPrice, setPayment_id) => {
     // https://femme-cab-api.vercel.app
-    const data = await fetch(`https://femme-cab-api.vercel.app/razorpay?price=${paymentPrice}`, {
+    const data = await fetch(`https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/razorpay?price=${paymentPrice}`, {
         method: 'POST'
     }).then((t) => t.json())
 
