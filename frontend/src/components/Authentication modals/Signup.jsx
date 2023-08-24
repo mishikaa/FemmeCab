@@ -90,7 +90,7 @@ const Signup = () => {
       };
 
       const {data} = await axios.post(
-        "https://femme-cab.vercel.app/api/user",
+        "https://femme-cab-api.vercel.app/api/user",
         // "http://localhost:5000/api/user",
         {name: formData.name, email: formData.email, password: formData.password},
         config); 
