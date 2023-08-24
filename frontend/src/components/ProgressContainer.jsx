@@ -8,14 +8,14 @@ const rideDetails = {
     name: "Renault Kwid",
     color: "black",
     vehicleNumber: "MP07CF6508",
-    driver: "Mahi",
+    driver: "Neha",
     image: "https://www.transparentpng.com/thumb/car-png/car-free-transparent-png-8.png"
 }
 const ProgressContainer = () => {
     const navigate = useNavigate();
     const {profile} = RideState();
     
-    console.log(`Profile: ${profile.emergencyContact}`)
+    // console.log(`Profile: ${profile.emergencyContact}`)
     
     const sendSOS = () => {
         navigate('/camera')
@@ -38,7 +38,7 @@ const ProgressContainer = () => {
             <div className='flex flex-col bg-white rounded-2xl pt-5 gap-3 justify-center'>
                 <div className='flex justify-around'>
                     <div className='flex flex-col justify-around'>
-                        <Profile />
+                        <Profile doNavigate={false}/>
                         <span>{rideDetails.driver}</span>
                     </div>
                     <a 
