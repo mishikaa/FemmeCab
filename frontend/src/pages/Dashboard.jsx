@@ -9,7 +9,7 @@ const Dashboard = () => {
       <div className='flex-col relative text-white rounded-br-[120px] bg-[var(--background-color)]'>
         <div className='flex justify-between items-center mb-8'>
           <h3 className="text-left text-xl p-3 ml-1 font-bold">FemmeCab</h3>
-          <Profile />
+          <Profile doNavigate={true}/>
         </div>
         
         <div className='text-left p-3 ml-3 mb-20'>
