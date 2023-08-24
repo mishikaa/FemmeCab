@@ -54,7 +54,7 @@ const Signup = () => {
     }
     
     // Identity verification
-    const data = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
+    const {data} = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
       method: 'GET',
       mode: 'cors'
     })
