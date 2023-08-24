@@ -54,11 +54,13 @@ const Signup = () => {
     }
     
     // Identity verification
-    const {data} = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
+    const res = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
       method: 'GET',
       mode: 'cors'
     })
-    // console.log(data.body);
+
+    const data = await res.json();
+    console.log(data);
     
     if(data.gender != "female") {
         errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
