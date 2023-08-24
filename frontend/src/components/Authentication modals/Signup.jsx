@@ -54,24 +54,24 @@ const Signup = () => {
     }
     
     // Identity verification
-    const {data} = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
-      method: 'GET',
-      mode: 'cors'
-    })
-    console.log(data.body);
+    // const {data} = await fetch(`https://gender-api.com/get?name=${formData.name}&key=${Config.GENDER_API_KEY}`, {
+    //   method: 'GET',
+    //   mode: 'cors'
+    // })
+    // console.log(data.body);
     
-    if(data["gender"] != "female") {
-        errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
-        setLoading(false);
-        setformData({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: ""
-        });
-        navigate('/contact')
-        return;
-    }
+    // if(data.gender != "female") {
+    //     errorPopup("Sorry, you are not allowed to use this application. Contact us if you think it's a mistake.");
+    //     setLoading(false);
+    //     setformData({
+    //       name: "",
+    //       email: "",
+    //       password: "",
+    //       confirmPassword: ""
+    //     });
+    //     navigate('/contact')
+    //     return;
+    // }
 
 
     // if the entered password is not same as the confirm pasword field
