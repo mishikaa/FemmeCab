@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, authUser, editProfile, fetchProfile } = require('../controllers/userControllers');
+const { registerUser, authUser, editProfile, fetchProfile, saveRideDetails } = require('../controllers/userControllers');
 const { protect } = require('../middleware/auth');
 
 const router = express.Router();
@@ -18,4 +18,6 @@ router.get('/map', protect, (req, res) => {
 router.route('/fetchProfile/:email').get(fetchProfile)
 router.route('/editProfile').post(editProfile)
 
+// POST REQUEST FOR RIDE DETAILS
+router.route('/saveRideDetails').post(saveRideDetails)
 module.exports = router

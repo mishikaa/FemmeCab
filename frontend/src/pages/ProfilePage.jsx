@@ -6,12 +6,18 @@ import EditProfile from '../components/EditProfile';
 import { Avatar } from '@chakra-ui/react';
 import axios from 'axios';
 import { errorPopup, successPopup } from '../components/popup';
+import RideHistory from "../components/RideHistory";
 
 
 const ProfilePage = () => {
     const {user, profile, setProfile, fetchAgain} = RideState();
     const [loading, setLoading] = useState();
+    const [showRideDetails, setShowRideDetails] = useState();
     
+    const displayRideDetails = () => {   
+        setShowRideDetails(!showRideDetails)
+    }
+
     // Fetching the additional profile details from the backend
     const fetchProfile = async() => {
         try {
@@ -93,13 +99,7 @@ const ProfilePage = () => {
                     <span className='text-[#dee2e6]'>{profile.savedAddress}</span>
                 </div>
             </div>
-            <div className='flex justify-center items-center gap-4'>
-                <img src="/assets/profile/history.png" className="w-12" alt="email-icon" />
-                <div className='flex flex-col justify-center items-start'>
-                    <span><b>My Rides</b></span>
-                    <span className='text-[#dee2e6]'>{profile.rideHistory}</span>
-                </div>
-            </div>
+            
             <div className='flex justify-center items-center gap-4'>
                 <img src="/assets/profile/emergencyContact.png" className="w-12" alt="email-icon" />
                 <div className='flex flex-col justify-center items-start'>
@@ -121,6 +121,14 @@ const ProfilePage = () => {
                     <span className='text-[#dee2e6]'>{profile.joiningDate}</span>
                 </div>
             </div>
+
+            <div className='flex justify-center items-center gap-4'>
+                <img src="/assets/profile/history.png" className="w-12" alt="email-icon" />
+                <div className='flex flex-col justify-center items-start'>
+                    <RideHistory rideDetails={profile.rideDetails} />
+                </div>
+            </div>
+            
             <div className='m-auto'>
                 <Logout />
             </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Webcam from "react-webcam";
 import axios from 'axios';
 import { Button } from '@chakra-ui/react';
 import './Camera.css';
@@ -45,7 +44,7 @@ export const Camera = () => {
           const [x, y] = landmark;
           canvasCtx.beginPath();
           canvasCtx.arc(x, y, 5, 0, 2 * Math.PI);
-          canvasCtx.fillStyle = 'red';
+          canvasCtx.fillStyle = 'green';
           canvasCtx.fill();
           canvasCtx.closePath();
         });
@@ -64,21 +63,22 @@ export const Camera = () => {
   };
 
   const stopWebcam = () => {
-    setWebcamActive(false);
     const tracks = webcamRef.current.srcObject.getTracks();
     tracks.forEach(track => track.stop());
-    setGestureResult("")
+    setWebcamActive(false);
   };
 
   const SendSOS = () => {
       const {res} = axios.post('http://localhost:5000/api/messages', {
           message: `I need help! My current location is: ${123}.`,
-          to: 8004912825
+          to: +918004912825
         })
       
       const data = res.json();
-      console.log(data);
+      // console.log(data);
       successPopup("SOS sent successfully!")
+      stopWebcam();
+      navigate('/rideInProgress');
   }
   return (
     
@@ -105,7 +105,7 @@ export const Camera = () => {
         <canvas ref={canvasRef} width={webcamRef.current?.videoWidth} height={webcamRef.current?.videoHeight} className="landmark-canvas" />
       </div>
 
-      {/* {gestureResult && SendSOS} */}
+      {gestureResult && SendSOS} 
     </div>
   )
 }

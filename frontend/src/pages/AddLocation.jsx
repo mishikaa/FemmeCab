@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import './AddLocation.css';
 import Curve from '../components/Curve';
 import LocationSheet from '../components/LocationSheet';
-import AddGeocoder from './AddGeocoder';
+import AddGeocoder from '../MapUtils/AddGeocoder';
 import { RideState } from '../Context_API/provider';
 
 const AddLocation = () => {

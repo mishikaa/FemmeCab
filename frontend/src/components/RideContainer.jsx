@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { RideState } from "../Context_API/provider";
 import Payment from "../pages/Payment";
 import Config from "../config.json";
-import { errorPopup } from "./popup";
+import { errorPopup, successPopup } from "./popup";
+import axios from "axios";
 
 export const RideContainer = ({rideDuration, setRideDuration}) => {
-    const {setDuration, setDistance, pickupCoordinates, dropoffCoordinates, setGeojson, setRoute, route} = RideState();
+    const {user, setDuration, setDistance, pickup, dropoff, pickupCoordinates, dropoffCoordinates, setGeojson, setRoute, route, distance, duration} = RideState();
     const navigate = useNavigate();
     
     const [payment_id, setPayment_id] = useState("")
@@ -32,8 +33,43 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
            }
        })
        
-
     }, [pickupCoordinates, dropoffCoordinates])
+    
+    /* Saving the ride details in the backend if payment has been made successfully */
+
+    const saveRideDetails = ()=> {
+        // Navigate only if a ride is selected and payment is successfull
+        if(payment_id && isActive!==-1) {
+            try {
+           console.log("in save details")
+        //    const {data} = axios.post('http://localhost:5000/api/user/saveRideDetails', 
+           const {data} = axios.post('https://femme-cab-api.vercel.app/api/user/saveRideDetails', 
+           {
+                userId: user._id,
+                pickupAddress: pickup,
+                dropoffAddress: dropoff,
+                distance: distance,
+                duration: duration,
+                paymentId: payment_id
+                }) 
+            if(data) {
+                successPopup('Ride details saved successfully!')
+            }
+            } catch (error) {     
+                errorPopup(`Something went wrong in saving RideDetails`);
+            }
+            navigate('/rideInProgress')
+        } else if(!payment_id){
+            errorPopup("Please make the payment first!")
+            return;
+        } else if(isActive===-1) {
+            errorPopup('Select your Ride first!')
+            return;
+        } else {
+            errorPopup('Some error occurred. Please try again later')
+            return;
+        }
+    }
     
     return (
         <div className="flex flex-1 flex-col justify-center items-center p-1">
@@ -64,80 +100,14 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
             </div>
             
             <Curve />
-            
+
             {/* Book now button */}
             <div 
               className="cursor-pointer -mt-12 hover:w-[61%] hover:text-lg py-[20px] flex items-center justify-center font-bold rounded-[50%] w-[60%] bg-gradient-to-r from-[#CED2E9] to-[#B0B9E5] text-black"
-              onClick={()=>{
-                // Navigate only if a ride is selected and payment is successfull
-                if(payment_id && isActive!==-1) {
-                    navigate('/rideInProgress')
-                } else if(!payment_id){
-                    errorPopup("Please make the payment first!")
-                } else if(isActive===-1) {
-                    errorPopup('Select your Ride first!')
-                } else {
-                    errorPopup('Some error occurred. Please try again later')
-                }
-            }}
+              onClick={saveRideDetails}
             >
               Book Now
             </div>
         </div>
   )
 }
-
-// {"routes":
-//   [
-//    {
-//     "weight_name":"auto",
-//     "weight":1952.479,
-//     "duration":1480.248,
-//     "distance":9107.271,
-//     "legs":[
-//         {
-//             "via_waypoints":[],
-//             "admins":[{"iso_3166_1_alpha3":"IND","iso_3166_1":"IN"}],
-//             "weight":1952.479,"duration":1480.248,
-//             "steps":[
-//                 {
-//                     "intersections":
-//                     [
-//                         {"bearings":[201],
-//                         "entry":[true],
-//                         "mapbox_streets_v8":{"class":"service"},
-//                         "is_urban":true,"admin_index":0,
-//                         "out":0,
-//                         "geometry_index":0,
-//                         "location":[78.169473,26.231308]}
-//                     ],
-//                     "maneuver":{
-//                         "type":"depart",
-//                         "instruction":"Drive south.",
-//                         "bearing_after":201,
-//                         "bearing_before":0,
-//                         "location":[78.169473,26.231308]
-//                     },
-//                     "name":"",
-//                     "duration":10.883,
-//                     "distance":60.729,
-//                     "driving_side":"left",
-//                     "weight":13.331,
-//                     "mode":"driving",
-//                     "geometry":{
-//                         "coordinates":
-//                         [
-//                             [78.169473,26.231308],
-//                             [78.16943,26.231198],
-//                             [78.169341,26.231057],
-//                             [78.169221,26.230905],
-//                             [78.169132,26.230897]],
-//                             "type":"LineString"
-//                     }
-//                 }
-//             ]
-//         }
-//     ]
-// }
-// ]
-// }

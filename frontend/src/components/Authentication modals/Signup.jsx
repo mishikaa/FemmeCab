@@ -105,34 +105,45 @@ const Signup = () => {
       catch(error) {
         errorPopup(`Failed to signup! Please try again.`);
         setLoading(false);
-
       }
     };
     
     // Handling Google Sign in
-    const handleGoogleSignIn= () =>{
+    const handleGoogleSignIn= async() =>{
       setGoogleLoading(true);
-
-      signInWithPopup(auth, provider).then((data) => {
-      setformData(data.user.email)
-      
-      console.log(data);
-      
-      const sentData = {
-        email: data.user.email,
-        token: data._tokenResponse.idToken,
-        _id: data.user.uid
+      try {
+        const {googleData} = await signInWithPopup(auth, provider)
+        setformData(googleData.user.email)
+        
+        // console.log(data);
+        
+        const sentData = {
+          email: data.user.email,
+          token: data._tokenResponse.idToken,
+          _id: data.user.uid
+        }
+        
+        const config = {
+          headers: {
+            'Content-type': "application/json"    
+          }
+        };
+  
+        const {data} = axios.post(
+          // "https://femme-cab-api.vercel.app/api/user",
+          "http://localhost:5000/api/user",
+          {email: formData.email},
+          config); 
+        
+        successPopup('Login Successful!');
+        localStorage.setItem("userInfo", JSON.stringify(sentData))
+        setGoogleLoading(false);
+        window.location.reload()
       }
-      
-      successPopup('Login Successful!');
-      localStorage.setItem("userInfo", JSON.stringify(sentData))
-      setGoogleLoading(false);
-      navigate('/');
-
-    }).catch((error)=>{
-      errorPopup('Error signing up with Google');
-      setGoogleLoading(false);
-    })
+    catch(error) {
+        errorPopup(`Error signing up with Google`);
+        setGoogleLoading(false);
+      }
     }
 
   return (

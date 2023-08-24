@@ -1,12 +1,43 @@
 const expressAsyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const Ride = require("../models/ride");
 const generateToken = require("../config/generateToken");
-const user = require("../models/user");
 
 const registerUser = expressAsyncHandler(async(req, res) => {
     const {name, email, password, profilePhoto} = req.body;
 
     if(!email || !password) {
+        res.status(400);
+        throw new Error("Please fill all the required fields");
+    }
+
+    const userExists = await User.findOne({email})
+    if(userExists) {
+        res.status(400)
+        throw new Error("User already exists. Login")
+    }
+
+    const user = await User.create({name, email, password, profilePhoto});
+
+    // if user has been successfully created in the database
+    if(user) {
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            profilePhoto: user.profilePhoto,
+            token: generateToken(user._id)
+        })
+    } else {
+        res.status(400)
+        throw new Error("User registration failed.")
+    }
+})
+
+const registerGoogleUser = expressAsyncHandler(async(req, res) => {
+    const {email, profilePhoto} = req.body;
+
+    if(!email) {
         res.status(400);
         throw new Error("Please fill all the required fields");
     }
@@ -56,15 +87,21 @@ const authUser = expressAsyncHandler(async(req, res) => {
 const fetchProfile = expressAsyncHandler(async(req, res) => {
     const {email} = req.params;
     // console.log(`Email: ${email}`);
-
+    
     const user = await User.findOne({email});
+    // console.log(user)
+
     if(user) {
+        const userId = user._id;
+        let rideDetails = await Ride.find({})
+
         return res.json({
             name: user.name,
             joiningDate: user.joiningDate.toLocaleDateString(),
             emergencyContact: user.emergencyContact,
             phoneNumber: user.phoneNumber,
             savedAddress: user.savedAddress,
+            rideDetails: rideDetails,
             dob:user.dob
         })
     } else {
@@ -97,4 +134,26 @@ const editProfile = expressAsyncHandler(async(req, res) => {
         throw new Error("Invalid email ID")
     }
 })
-module.exports = {registerUser, authUser, fetchProfile, editProfile};
+
+const saveRideDetails = expressAsyncHandler(async(req, res) => {
+    const {userId, pickupAddress, dropoffAddress, paymentId, duration, distance} = req.body; 
+
+    let rideData = await Ride.create({pickupAddress, dropoffAddress, distance, duration, paymentId, userId});
+    if(rideData) {
+        return res.json({
+            pickupAddress: rideData.pickupAddress,
+            dropoffAddress: rideData.dropoffAddress,
+            distance: rideData.distance,
+            duration: rideData.duration,
+            paymentId: rideData.paymentId,
+            user: rideData.user,
+            time: rideData.time,
+        })
+        
+    } else {
+        res.status(400)
+        throw new Error("Failed to save te ride details.")
+    }
+})
+
+module.exports = {registerUser, authUser, fetchProfile, editProfile, saveRideDetails};

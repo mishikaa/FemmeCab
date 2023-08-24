@@ -110,7 +110,7 @@ const Map = () => {
       'source': 'iss',
       'layout': {
             'icon-image': 'liveCar', // reference the image
-            'icon-size': 0.13,
+            'icon-size': 0.05,
       }
       });
       

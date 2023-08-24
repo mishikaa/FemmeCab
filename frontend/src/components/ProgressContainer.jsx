@@ -19,7 +19,6 @@ const ProgressContainer = () => {
     
     const sendSOS = () => {
         navigate('/camera')
-        successPopup('SOS sent successfully!');
     }
     return (
         <div className="location-box rounded-t-[2rem] -mt-8 z-10 rounded-b-none flex-0.8 flex flex-col justify-center gap-2 w-[100%]">

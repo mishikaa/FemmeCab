@@ -5,7 +5,6 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from flask import Flask, render_template, Response,  request, jsonify
 import base64
-import os
 
 app = Flask(__name__)
 
@@ -22,8 +21,8 @@ with open('gesture.names', 'r') as f:
     classNames = f.read().split('\n')
 
 
-# @app.route('/process_stream', methods=['POST'])
-def process_stream(data):
+@app.route('/process_stream', methods=['POST'])
+def process_stream():
     data = request.json
     frame_base64 = data.get('frame')
 
@@ -35,7 +34,6 @@ def process_stream(data):
     x, y, c = frame.shape
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result = hands.process(frame_rgb)
-    # gesture_result = ''
 
     if result.multi_hand_landmarks:
         landmarks = []
@@ -55,21 +53,5 @@ def process_stream(data):
     response = {'landmarks': landmarks_response, 'gesture_result': gesture_result}
     return jsonify(response)
 
-def handler(request):
-    if request.method == 'POST':
-        data = request.json
-        response = process_stream(data)
-        return {
-            "statusCode": 200,
-            "headers": { "Content-Type": "application/json" },
-            "body": json.dumps(response)
-        }
-    else:
-        return {
-            "statusCode": 405,
-            "headers": { "Content-Type": "text/plain" },
-            "body": "Method Not Allowed"
-        }
-    
-# if __name__ == '__main__':
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

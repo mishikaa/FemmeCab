@@ -27,6 +27,10 @@ const UserSchema = new Schema({
     savedAddress: {
         type: String
     },
+    rideDetails:  {
+        type: Schema.Types.ObjectId,
+        ref: "Ride"
+    },
     emergencyContact: {
         type: Number
     },

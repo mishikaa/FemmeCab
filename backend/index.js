@@ -14,10 +14,10 @@ connectDB(); //Invoking the function for connecting the database
 
 const server_port = process.env.SERVER_PORT;
 
-// origin: ["https://femme-cab.vercel.app"],
+origin: ["http://localhost:3000"],
 
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://femme-cab.vercel.app"],
     credentials:true,   
     methods: ["POST, GET"]
 }))
@@ -42,21 +42,29 @@ const client = require('twilio')(
   process.env.TWILIO_AUTH_TOKEN
 );
 
-app.post('/api/messages', (req, res) => {
-  res.header('Content-Type', 'application/json');
-  client.messages
+app.post('/api/messages', async(req, res) => {
+  const {to, message} = req.body;
+  try {
+    const data = await client.messages
     .create({
       from: process.env.TWILIO_PHONE_NUMBER,
-      to: req.body.to,
-      body: req.body.body
+      to: to,
+      body: message
     })
-    .then(() => {
-      res.send(JSON.stringify({ success: true }));
-    })
-    .catch(err => {
-      console.log(err);
-      res.send(JSON.stringify({ success: false }));
-    });
+    console.log(data)
+
+    res.send(JSON.stringify({ success: true }))
+  } catch (error) {
+    res.send(JSON.stringify({ success: true }))
+  }
+ 
+    // .then(() => {
+    //   res.send(JSON.stringify({ success: true }));
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    //   res.send(JSON.stringify({ success: false }));
+    // });
 });
 
 app.listen(server_port, 

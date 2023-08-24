@@ -2,7 +2,7 @@ import { ActionItems } from '../components/ActionItems';
 import DashboardMap from '../components/DashboardMap';
 import Profile from '../components/Profile';
 
-const Mappage = () => {
+const Dashboard = () => {
   
     return (  
     <div className='flex flex-col w-full h-[120vh] overflow-y-auto text-black bg-gradient-to-b from-[#8e9eab] to-[#eef2f3]'>
@@ -28,4 +28,4 @@ const Mappage = () => {
   )
 }
 
-export default Mappage;
+export default Dashboard;
