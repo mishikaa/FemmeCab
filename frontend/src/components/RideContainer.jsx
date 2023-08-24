@@ -43,7 +43,7 @@ export const RideContainer = ({rideDuration, setRideDuration}) => {
             try {
            console.log("in save details")
         //    const {data} = axios.post('http://localhost:5000/api/user/saveRideDetails', 
-           const {data} = axios.post('https://femme-cab-api.vercel.app/api/user/saveRideDetails', 
+           const {data} = axios.post('https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/saveRideDetails', 
            {
                 userId: user._id,
                 pickupAddress: pickup,
