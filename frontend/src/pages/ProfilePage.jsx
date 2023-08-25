@@ -27,14 +27,18 @@ const ProfilePage = () => {
               }
             };
                  
-            const {data} = await axios.get(
+            const res = await fetch(
               `https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/fetchProfile/${user.email}`,
-              config
+               {
+        method: 'GET',
+                   mode: cors: 
+    }
             ); 
-            
+
+            const data = res.json();
             setProfile(data)
 
-            // console.log(profile)
+            console.log(profile)
             successPopup('Profile Data fetched!')
             setLoading(false);
         
