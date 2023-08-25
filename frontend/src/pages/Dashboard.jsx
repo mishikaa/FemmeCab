@@ -1,51 +1,9 @@
 import { ActionItems } from '../components/ActionItems';
 import DashboardMap from '../components/DashboardMap';
 import Profile from '../components/Profile';
-import React, { useEffect, useState } from 'react'
-
-import { errorPopup, successPopup } from '../components/popup';
-import { RideState } from '../Context_API/provider';
 
 const Dashboard = () => {
-   const {user, profile, setProfile} = RideState();
  
-  // Fetching the additional profile details from the backend
-    const fetchProfile = async() => {
-        try {
-            const config = {
-              headers: {
-                'Content-type': "application/json"    
-              }
-            };
-                 
-            const res = await fetch(
-              `https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/fetchProfile/${user.email}`,
-               {
-        method: 'GET',
-                   mode: 'cors'
-    }
-            ); 
-
-            const data = await res.json();
-            setProfile(data)
-           console.log(profile);
-           
-            localStorage.setItem('profile', JSON.stringify(data));
-
-            // console.log(profile)
-            successPopup('Profile Data fetched!')
-     
-        
-            }
-            catch(error) {
-              errorPopup("Failed to fetch data! Please try again later.");
-          
-            }
-    }
-
-    useEffect(() => {
-      fetchProfile();
-    }, [])
     return (  
     <div className='flex flex-col w-full h-[120vh] overflow-y-auto text-black bg-gradient-to-b from-[#8e9eab] to-[#eef2f3]'>
       <div className='flex-col relative text-white rounded-br-[120px] bg-[var(--background-color)]'>
