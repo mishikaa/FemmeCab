@@ -27,20 +27,20 @@ const ProfilePage = () => {
               }
             };
                  
-            const res = await fetch(
+            const response = await fetch(
               `https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/fetchProfile/${user.email}`,
                {
-        method: 'GET',
+                  method: 'GET',
                    mode: 'cors'
-    }
+               }
             ); 
 
-            const data = await res.json();
+            const data = await response.json();
             setProfile(data)
 
             // localStorage.setItem('profile', JSON.stringify(profile));
 
-            // console.log(profile)
+            console.log(profile)
             successPopup('Profile Data fetched!')
             setLoading(false);
         
