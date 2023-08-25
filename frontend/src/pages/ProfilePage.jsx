@@ -35,7 +35,7 @@ const ProfilePage = () => {
     }
             ); 
 
-            const data = res.json();
+            const data = await res.json();
             setProfile(data)
 
             console.log(profile)
