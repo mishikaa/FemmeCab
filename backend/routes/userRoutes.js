@@ -11,11 +11,12 @@ router.route('/')
 // POST REQUEST FOR LOGIN
 router.route('/login').post(authUser)
 
+router.route('/fetchProfile/:email').get(fetchProfile)
+
 router.get('/map', protect, (req, res) => {
     console.log("Map route accessed")
 })
 
-router.route('/fetchProfile/:email').get(fetchProfile)
 router.route('/editProfile').post(editProfile)
 
 // POST REQUEST FOR RIDE DETAILS
