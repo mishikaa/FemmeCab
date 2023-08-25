@@ -31,7 +31,7 @@ const ProfilePage = () => {
               `https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/fetchProfile/${user.email}`,
                {
         method: 'GET',
-                   mode: cors: 
+                   mode: 'cors'
     }
             ); 
 
