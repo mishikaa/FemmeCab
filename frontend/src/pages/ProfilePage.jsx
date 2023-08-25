@@ -38,7 +38,7 @@ const ProfilePage = () => {
             const data = await res.json();
             setProfile(data)
 
-            localStorage.setItem('profile', JSON.stringify(profile));
+            // localStorage.setItem('profile', JSON.stringify(profile));
 
             // console.log(profile)
             successPopup('Profile Data fetched!')
