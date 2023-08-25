@@ -33,13 +33,12 @@ const Dashboard = () => {
 
             // console.log(profile)
             successPopup('Profile Data fetched!')
-            setLoading(false);
+     
         
             }
             catch(error) {
               errorPopup("Failed to fetch data! Please try again later.");
           
-              setLoading(false);
             }
     }
 
