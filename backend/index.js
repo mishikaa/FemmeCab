@@ -15,7 +15,7 @@ connectDB(); //Invoking the function for connecting the database
 const server_port = process.env.SERVER_PORT;
 
 app.use(cors({
-    origin: ["https://femme-cab.vercel.app"],
+    origin: ["https://femme-cab-frontend-9435qf2t0-mishikaa.vercel.app"],
     credentials:true,   
     methods: ["POST, GET"]
 }))
