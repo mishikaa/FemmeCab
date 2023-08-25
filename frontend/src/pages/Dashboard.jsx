@@ -28,8 +28,9 @@ const Dashboard = () => {
 
             const data = await res.json();
             setProfile(data)
-
-            localStorage.setItem('profile', JSON.stringify(profile));
+           console.log(profile);
+           
+            localStorage.setItem('profile', JSON.stringify(data));
 
             // console.log(profile)
             successPopup('Profile Data fetched!')
