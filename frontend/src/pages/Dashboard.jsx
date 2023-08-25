@@ -3,6 +3,9 @@ import DashboardMap from '../components/DashboardMap';
 import Profile from '../components/Profile';
 import React, { useEffect, useState } from 'react'
 
+import { errorPopup, successPopup } from '../components/popup';
+import { RideState } from '../Context_API/provider';
+
 const Dashboard = () => {
    const {user, profile, setProfile} = RideState();
  
