@@ -27,15 +27,11 @@ const ProfilePage = () => {
               }
             };
                  
-            const response = await fetch(
+            const {data} = await axios.get(
               `https://femme-cab-1pdfbnfu3-mishikaa.vercel.app/api/user/fetchProfile/${user.email}`,
-               {
-                  method: 'GET',
-                   mode: 'cors'
-               }
+              config
             ); 
-
-            const data = await response.json();
+          
             setProfile(data)
 
             // localStorage.setItem('profile', JSON.stringify(profile));
