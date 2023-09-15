@@ -136,6 +136,5 @@ Distributed under the MPL-2.0 License. See [LICENSE](https://github.com/mishikaa
 
 ## Authors
 
-* **Himanshi** - [Himanshi](https://github.com/Himanshi-023/)
 * **Mishika Jaiswal** - [Mishika Jaiswal](https://github.com/mishikaa/)
 * **Saakshi Dharmadhikary** - [Saakshi D](https://github.com/Saakshi-D/)
