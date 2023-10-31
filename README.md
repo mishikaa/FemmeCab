@@ -40,33 +40,11 @@
 
 FemmeCab is the first one-of-a-kind women-only cab booking and ride-sharing system that is meticulously designed for the safe and comfortable traveling experience of women in India. FemmeCab aims at empowering women journey with enhanced safety measure, 24/7 availability, prompt pickups, and well-maintained vehicles that is just one click away.
 
-<div align="center">
-  
-### Home Page
-<img src="Screenshots/homepage.png" width="800" height="750">
-
-### Mobile View
-<img src="Screenshots/mobile.png" width="800" height="750">
-
-### Dashboard
- ![dashboard1](Screenshots/mapbox.png)   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![dashboard2](Screenshots/currentLocation.png) 
 
 
-### Add Location Page
-<img src="Screenshots/addLocation.png">
+## Working demo
 
-### Confirmation Page
- ![confirm1](Screenshots/confirmPage.png)   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![confirm2](Screenshots/confirmPage2.png) 
-
-### Payment 
-<img width="48%" align="left" height="650" src="Screenshots/paymentCard.jpg" />
-<img width="48%" align="right" height="650" src="Screenshots/paymentSuccessful.jpg" />
-&nbsp;
-
-### Ride in Progress Page
-<img src="Screenshots/rideInProgress.png">
-</div>
-
+https://github.com/mishikaa/FemmeCab/assets/100283851/30f968e4-9ec4-4a93-a70c-42c06a1e8e17
 
 ## Built With
 * [React](https://react.dev/)
